@@ -1,0 +1,53 @@
+{% extends "customer/base.html" %}
+
+{% block dashboard_content %}
+<div class="container">
+    <h1>Settings</h1>
+
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5>Account Settings (Coming Soon)</h5>
+            <form>
+                <div class="mb-3">
+                    <label class="form-label">Preferred Language</label>
+                    <select class="form-select">
+                        <option selected>English</option>
+                        <option>French</option>
+                        <option>Spanish</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Currency</label>
+                    <select class="form-select">
+                        <option selected>KES</option>
+                        <option>USD</option>
+                        <option>EUR</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <h5>Privacy & Security (Coming Soon)</h5>
+            <form>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="twofactor">
+                    <label class="form-check-label" for="twofactor">Enable two-factor authentication</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="logoutdevices">
+                    <label class="form-check-label" for="logoutdevices">Log out from other devices</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="newsletters">
+                    <label class="form-check-label" for="newsletters">Receive newsletters</label>
+                </div>
+                <button type="submit" class="btn btn-primary mt-3">Save Settings</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

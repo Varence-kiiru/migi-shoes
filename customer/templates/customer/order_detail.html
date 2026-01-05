@@ -1,0 +1,93 @@
+{% extends "customer/base.html" %}
+
+{% block dashboard_content %}
+<div class="container">
+    <h1>Order #{{ order.order_id }}</h1>
+
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5>Order Details</h5>
+            <p><strong>Date:</strong> {{ order.order_date }}</p>
+            <p><strong>Status:</strong> {{ order.status }}</p>
+        </div>
+    </div>
+</section>
+
+<!-- Customer Info -->
+<section>
+    <h2>Customer Info</h2>
+    <p><strong>Name:</strong> {{ order.customer.user.first_name }} {{ order.customer.user.last_name }}</p>
+    <p><strong>Shipping Address:</strong>
+        {% if order.shipping_address %}
+            {{ order.shipping_address.first_name }} {{ order.shipping_address.last_name }}, {{ order.shipping_address.street }}, {{ order.shipping_address.city }} {{ order.shipping_address.zip_code }}
+        {% else %}
+            N/A
+        {% endif %}
+    </p>
+    <p><strong>Billing Address:</strong>
+        {% if order.billing_address %}
+            {{ order.billing_address.first_name }} {{ order.billing_address.last_name }}, {{ order.billing_address.street }}, {{ order.billing_address.city }} {{ order.billing_address.zip_code }}
+        {% else %}
+            N/A
+        {% endif %}
+    </p>
+</section>
+
+<!-- Order Items -->
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5>Order Items</h5>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Unit Price</th>
+                            <th>Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in order.items.all %}
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center gap-3">
+                                    {% with item.variant.shoe.images.first as first_image %}
+                                        {% if first_image %}
+                                            <img src="{{ first_image.image.url }}" alt="{{ first_image.alt_text|default:item.variant.shoe.name }}" class="img-thumbnail" style="width:80px; height:80px; object-fit:cover;"/>
+                                        {% else %}
+                                            <div class="bg-light d-flex align-items-center justify-content-center" style="width:80px; height:80px;">No image</div>
+                                        {% endif %}
+                                    {% endwith %}
+                                    <div>
+                                        <div class="fw-bold">{% if item.variant.shoe.brand %}{{ item.variant.shoe.brand.name }}{% else %}Generic Brand{% endif %} &mdash; {{ item.variant.shoe.name }}</div>
+                                        <div class="text-muted">Color: {{ item.variant.color }} | Size: {{ item.variant.size_system }} {{ item.variant.size }}</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>{{ item.quantity }}</td>
+                            <td>KSh {{ item.price }}</td>
+                            <td>KSh {{ item.subtotal }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3" class="text-end"><strong>Total:</strong></td>
+                            <td><strong>KSh {{ order.total_price }}</strong></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+
+<!-- Payment Info -->
+<section>
+    <h2>Payment Info</h2>
+    <p> {{order.payment_method_label}}    </p>
+</section>
+
+<a href="{% url 'customer:customer_orders' %}">Back to Orders</a>
+
+{% endblock %}

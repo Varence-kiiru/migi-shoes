@@ -1,0 +1,68 @@
+.shop-header {
+  display: flex; /*to control the position of items inside horizontally and vertically*/
+  align-items: center; /*Vertically centers items within the header */
+  justify-content: space-between; /*Places first and last items at edges, with space in between */
+  background-color: #000;
+  color: white; /*for icons and text*/
+  padding: 10px 15px; 
+  font-family: 'Montserrat';
+  width: 100%;
+}
+
+.menu-icon i {
+  font-size: 20px;
+  cursor: pointer;
+  text-align: center;
+  color: white;
+}
+
+.shop-name {
+  font-size: 20px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  font-family: 'Montserrat';
+  margin-right: 20px;
+}
+
+.search-bar {
+  background-color: #33333300;
+}
+
+.search-bar input {
+  background: none;
+  border: none;
+  outline: none;
+  color: white;
+  width: 100%;
+  padding: 5px;
+}
+
+.search-bar i {
+  color: #ccc;
+  margin-left: 5px;
+}
+
+.icon-group {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.icon i {
+  font-size: 22px;
+  color: white;
+}
+
+.cart-icon {
+  position: relative;
+}
+
+.cart-dot {
+  position: absolute;
+  top: 0;
+  right: -5px;
+  background-color: #9ACD32;
+  border-radius: 50%;
+  width: 8px;
+  height: 8px;
+}

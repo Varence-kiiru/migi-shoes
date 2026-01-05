@@ -1,0 +1,58 @@
+{% extends "BaseTemplate/base.html" %}
+{% load static %}
+{% block title %}Contact Us - Migi Shoes{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'css/storefront/contact.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <div class="contact-page">
+        <div class="container">
+        <div class="one">
+            <div class="contact-us-text">Contact Us!</div>
+            <br>
+            <div class="onepic">
+                <img src="{% static 'images/storefront/img4.jpg' %}" alt="Contact image" />
+            </div>
+        </div>
+        <div class="two">
+            <div class="twodiv">
+                <div class="twoform">
+                    <img class="bg-img" src="{% static 'images/storefront/img2.jpg' %}" alt="Background" />
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        <div class="inputtext">
+                            <label class="label">First name </label>
+                            <input class="textbox" type="text" name="fname" id="fname" value="{{ fname|default:'' }}" maxlength="50" required>
+                        </div>
+                        <div class="inputtext">
+                            <label class="label">Last name </label>
+                            <input class="textbox" type="text" name="lname" id="lname" value="{{ lname|default:'' }}" maxlength="50" required>
+                        </div>
+                        <div class="inputtext">
+                            <label class="label">Email </label>
+                            <input class="textbox" type="email" name="email" id="email" value="{{ email|default:'' }}" required pattern="[A-Za-z0-9._%+-]+@(gmail\.com|yahoo\.com|outlook\.com|hotmail\.com|icloud\.com|protonmail\.com)" title="Please enter an email at gmail.com, yahoo.com, outlook.com, hotmail.com, icloud.com or protonmail.com">
+                        </div>
+                        <div class="inputtext">
+                            <label class="label">Phone Number </label>
+                            <input class="textbox" type="tel" name="telnum" id="telnum" value="{{ telnum|default:'' }}" pattern="\+230\d{8}" title="Use format +23012345678 (exactly 8 digits after +230)." >
+                        </div>
+                        <div  class="inputtext">
+                            <label class="label">Message </label>
+                            <textarea type="textarea" name="message" id="message" class="textarea" minlength="10" maxlength="1000" required>{{ message|default:'' }}</textarea>
+                        </div>
+                        <div class="button-div">
+                            <button class="button" type="submit" name="submit" id="submit" >Submit</button>
+                            <button class="button" type="reset">Reset</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+{% endblock %}

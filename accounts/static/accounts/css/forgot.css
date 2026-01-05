@@ -1,0 +1,107 @@
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-image: url('../images/img1.jpeg');
+    background-size: cover;
+    background-color: rgb(255, 103, 103);
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+}
+
+.information-input{
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    background-color: rgb(238, 238, 238);
+    width: 30%;
+    height: 60%;
+    border-radius: 15px;
+    /* padding-top: 5%; */
+}
+
+.reset-text{
+    color: rgb(0, 0, 0);
+    font-family: 'Montserrat';
+    font-size: 200%;
+}
+
+
+.email-box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(95, 158, 160, 0);
+    width: 100%;
+    height: 20%;
+}
+
+.email-label{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(214, 214, 214, 0);
+
+    font-size: larger;
+    font-family: 'Montserrat';
+    width: 100%;
+    height: 100%;
+
+    border-radius: 10px;
+}
+
+.email-input-box{
+    width: 90%;
+    height: 100%;
+}
+
+.email-input{
+    width: 100%;
+    height: 5vh;
+    border-radius: 10px;
+    border: 10px;
+    border-color: black;
+}
+
+.submit-button-box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: rgba(255, 0, 255, 0);
+    width: 100%;
+    height: 50px;
+    padding-top: 5%;
+}
+
+.submit-button{
+    width: 50%;
+    height:100%;
+    border-radius: 20px;
+
+    font-weight: 100;
+    font-size: 75%;
+
+    background-color:rgb(186, 186, 186) ;
+    color: rgb(0, 0, 0);
+    border-color: rgba(240, 248, 255, 0);
+}
+
+.submit-button:hover{
+    color: aquamarine;
+    background-color: black;
+}
+
+.form-group{
+    width: 100%;
+    height: 5vh;
+    border-radius: 20px;
+    border: 10px;
+    border-color: black;
+}
+
+.form-errors{
+    background-color: rgba(166, 166, 166, 0);
+}

@@ -1,0 +1,48 @@
+{% extends "customer/base.html" %}
+
+{% block dashboard_content %}
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <h1 class="card-title">Notifications</h1>
+
+            {% if notifications %}
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Message</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for n in notifications %}
+                        <tr>
+                            <td>{{ n.created_at|date:"Y-m-d H:i" }}</td>
+                            <td>{{ n.message }}</td>
+                            <td>{% if n.is_read %}<span class="badge bg-secondary">Read</span>{% else %}<span class="badge bg-warning text-dark">Unread</span>{% endif %}</td>
+                            <td>
+                                <a href="{% url 'customer:mark_notification_read' n.id %}" class="btn btn-sm btn-outline-primary">
+                                Mark as {% if n.is_read %} unread{% else %} read{% endif %}
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <form method="post" action="{% url 'customer:mark_all_notifications_read' %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary">Mark All as Read</button>
+            </form>
+            {% else %}
+                <p>No notifications yet.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

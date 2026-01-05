@@ -1,0 +1,49 @@
+{% extends "customer/base.html" %}
+
+{% block dashboard_content %}
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <h1 class="card-title">Edit Personal Information</h1>
+            <form method="POST">
+                {% csrf_token %}
+
+                <div class="mb-3">
+                    <label class="form-label">First name</label>
+                    {{ user_form.first_name }}
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Last name</label>
+                    {{ user_form.last_name }}
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Phone</label>
+                        {{ customer_form.phone }}
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Mobile</label>
+                        {{ customer_form.mobile }}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Date of Birth</label>
+                        {{ customer_form.date_of_birth }}
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Gender</label>
+                        {{ customer_form.gender }}
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

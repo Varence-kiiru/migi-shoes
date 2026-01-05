@@ -1,0 +1,72 @@
+{% load static %}
+<!-- Navbar (extracted from nav.html) -->
+<nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container-fluid">
+        <button class="btn me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSidebar" aria-controls="#offcanvasSidebar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <a class="navbar-brand d-flex align-items-center" href="{% url 'storefront:home' %}">
+            {% if company.logo %}
+                <img src="{{ company.logo.url }}" alt="logo" height="34" class="d-inline-block align-text-top me-2">
+            {% else %}
+                <img src="{% if theme == 'dark' %}{% static 'BaseTemplate/images/dark-logo.png' %}{% else %}{% static 'BaseTemplate/images/white-logo.png' %}{% endif %}" alt="logo" height="34" class="d-inline-block align-text-top me-2">
+            {% endif %}
+            <span class="fw-bold">{{ company.company_name|upper }}</span>
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navCollapse" aria-controls="navCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navCollapse">
+            <!-- center: search -->
+            <form class="d-flex mx-auto" role="search" method="get" action="{% url 'products:search' %}">
+                <div class="input-group" style="min-width: 320px;">
+                    <input class="form-control" type="search" placeholder="Search products" aria-label="Search" name="q" value="{{ request.GET.q|default_if_none:'' }}">
+                    <button class="btn btn-outline-light" type="submit"><i class="fas fa-search"></i></button>
+                </div>
+            </form>
+
+            <!-- right icons -->
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% if user.customer_profile %}{% url 'customer:customer_profile' %}{% else %}/admin/{% endif %}" title="Account"><i class="fas fa-user-circle fa-lg"></i></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'products:wishlist' %}" title="Wishlist"><i class="far fa-heart fa-lg"></i></a>
+                </li>
+                <li class="nav-item position-relative">
+                    <a class="nav-link" href="{% url 'cart:summary' %}" title="Cart"><i class="fas fa-shopping-cart fa-lg"></i>
+                        {%if user.customer_profile and user.customer_profile.cart_items.all or request.session.cart%}<span class="cart-dot"></span> {% endif %}
+                    </a>
+                </li>
+                <!-- Theme toggle -->
+                <li class="nav-item">
+                    <form method="post" action="{% url 'storefront:toggle_theme' %}" class="d-inline">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-outline-light ms-2" title="Toggle theme">
+                            {% if theme == 'dark' %}
+                                <i class="fas fa-sun"></i>
+                            {% else %}
+                                <i class="fas fa-moon"></i>
+                            {% endif %}
+                        </button>
+                    </form>
+                </li>
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <form method="post" action="{% url 'customer:logout' %}" class="d-inline">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-outline-light ms-2">Logout</button>
+                    </form>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="btn btn-outline-light ms-2" href="{% url 'accounts:login' %}">Log in</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>

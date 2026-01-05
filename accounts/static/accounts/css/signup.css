@@ -1,0 +1,236 @@
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-image: url('../images/img2.jpg');
+    background-size: cover;
+    background-color: rgb(255, 103, 103);
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+}
+
+.signup-box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: rgb(238, 238, 238);
+    background-size: cover;
+
+    z-index: 1;
+
+    width: 35%;
+    height: 75%;
+    border-radius: 20%;
+}
+
+.signup-items{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+
+    background-color: rgba(128, 255, 0, 0);
+    width: 80%;
+    height: 90%;
+}
+
+.signup-text{
+    color: black;
+    font-family: 'Montserrat';
+    font-size: 300%;
+}
+
+.information-input{
+    background-color: rgba(0, 0, 255, 0);
+    width: 90%;
+    height: 90%;
+}
+
+.username-box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(95, 158, 160, 0);
+    width: 100%;
+    height: 20%;
+}
+
+.username-label{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 136, 255, 0);
+
+    font-size: larger;
+    font-family: 'Montserrat';
+    width: 100%;
+    height: 100%;
+
+    padding-top: 5%;
+}
+
+.username-input-box{
+    width: 90%;
+    height: 100%;
+    padding-top: 5%;
+
+}
+
+.username-input{
+    width: 100%;
+    height: 5vh;
+    border-radius: 20px;
+    border: 10px;
+    border-color: black;
+}
+
+.email-box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(95, 158, 160, 0);
+    width: 100%;
+    height: 20%;
+}
+
+.email-label{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 136, 255, 0);
+
+    font-size: larger;
+    font-family: 'Montserrat';
+    width: 100%;
+    height: 100%;
+
+    padding-top: 5%;
+}
+
+.email-input-box{
+    width: 90%;
+    height: 100%;
+    padding-top: 5%;
+
+}
+
+.email-input{
+    width: 100%;
+    height: 5vh;
+    border-radius: 20px;
+    border: 10px;
+    border-color: black;
+}
+
+.password-box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background-color: rgba(185, 56, 255, 0);
+    width: 100%;
+    height: 35%;
+
+    padding-top: 5%;
+
+}
+
+.password-label{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(240, 248, 255, 0);
+
+    font-size: larger;
+    font-family: 'Montserrat';
+    width: 100%;
+    height: 100%; 
+}
+
+.password-input-box{
+    width: 90%;
+    height: 100%;
+    padding-top: 5%;
+
+}
+
+.password-input{
+    width: 100%;
+    height: 5vh;
+    border-radius: 20px;
+    border: 10px;
+    border-color: black;
+}
+
+.confirm-password-label{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(240, 248, 255, 0);
+
+    font-size: larger;
+    font-family: 'Montserrat';
+    width: 100%;
+    height: 100%;
+    
+    padding-top: 5%;
+    
+}
+
+.confirm-password-input-box{
+    width: 90%;
+    height: 100%;
+
+    padding-top: 5%;
+
+}
+
+.confirm-password-input{
+    width: 100%;
+    height: 5vh;
+    border-radius: 20px;
+    border: 10px;
+    border-color: black;
+}
+
+.signup-button-box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: rgba(255, 0, 255, 0);
+    width: 100%;
+    height: 10%;
+    padding-top: 4%;
+    padding-bottom: 4%;
+
+    padding-top: 10%;
+
+}
+
+.signup-button{
+    width: 150px;
+    height:50px;
+    border-radius: 20px;
+
+    font-weight: 100;
+    font-size: 75%;
+
+    background-color:rgb(186, 186, 186) ;
+    color: rgb(0, 0, 0);
+    border-color: rgba(240, 248, 255, 0);
+}
+
+.signup-button:hover{
+    color: aquamarine;
+    background-color: black;
+}
+
+.error p {
+  color: red;
+  font-size: 0.9em;
+  margin: 4px 0;
+}

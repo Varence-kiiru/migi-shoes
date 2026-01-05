@@ -1,0 +1,99 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+{% block extrastyle %}
+  <link rel="stylesheet" href="{% static "admin/dashboard.css" %}">
+{%endblock %}
+{% block content %}
+<h1 class="dashboard-heading">Admin Dashboard</h1>
+
+<div class="dashboard-container">
+  <div class="card">
+    <h3>Total Customers</h3>
+    <p class="stat-value--customers">{{ total_customers }}</p>
+  </div>
+
+  <div class="card card--large">
+    <h3>Total Orders</h3>
+    <p class="stat-value--orders">{{ total_orders }}</p>
+
+    <table class="summary-table">
+      <thead>
+        <tr>
+          <th>Status</th>
+          <th class="text-right">Count</th>
+          <th class="text-right">Percent</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for status, data in status_summary.items %}
+        <tr>
+          <td>{{ status }}</td>
+          <td class="text-right">{{ data.count }}</td>
+          <td class="text-right">{{ data.percent }}%</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>Total Sales</h3>
+    <p class="stat-value--sales">${{ total_sales }}</p>
+  </div>
+</div>
+
+<section style="margin-top:1.25rem">
+  <h3>Top Sold Items</h3>
+  {% if most_sold %}
+    <ol>
+      {% for item in most_sold %}
+        <li style="display:flex;align-items:center;gap:0.5rem">
+          {% with item.variant.shoe.images.all.0 as thumb %}
+            {% if thumb %}
+              <a href="{{ item.variant.shoe.get_absolute_url }}"><img src="{{ thumb.image.url }}" alt="{{ item.variant.shoe.name }}" style="width:40px;height:40px;object-fit:cover;border-radius:4px"></a>
+            {% endif %}
+          {% endwith %}
+          <span>{{ item.variant.shoe.name }} — <strong>{{ item.total_sold }}</strong> sold</span>
+        </li>
+      {% endfor %}
+    </ol>
+  {% else %}
+    <p>No sales yet.</p>
+  {% endif %}
+</section>
+{% endblock %}
+
+{% block sidebar %}
+<div class="dashboard">
+<div id="recent-actions-container">
+    <div class="module" id="recent-actions-module">
+        <h2>{% translate 'Recent actions' %}</h2>
+        <h3>{% translate 'My actions' %}</h3>
+            {% load log %}
+            {% get_admin_log 10 as admin_log for_user user %}
+            {% if not admin_log %}
+            <p>{% translate 'None available' %}</p>
+            {% else %}
+            <ul class="actionlist">
+            {% for entry in admin_log %}
+            <li class="{% if entry.is_addition %}addlink{% endif %}{% if entry.is_change %}changelink{% endif %}{% if entry.is_deletion %}deletelink{% endif %}">
+                <span class="visually-hidden">{% if entry.is_addition %}{% translate 'Added:' %}{% elif entry.is_change %}{% translate 'Changed:' %}{% elif entry.is_deletion %}{% translate 'Deleted:' %}{% endif %}</span>
+                {% if entry.is_deletion or not entry.get_admin_url %}
+                    {{ entry.object_repr }}
+                {% else %}
+                    <a href="{{ entry.get_admin_url }}">{{ entry.object_repr }}</a>
+                {% endif %}
+                <br>
+                {% if entry.content_type %}
+                    <span class="mini quiet">{% filter capfirst %}{{ entry.content_type.name }}{% endfilter %}</span>
+                {% else %}
+                    <span class="mini quiet">{% translate 'Unknown content' %}</span>
+                {% endif %}
+            </li>
+            {% endfor %}
+            </ul>
+            {% endif %}
+    </div>
+</div>
+</div>
+{% endblock %}

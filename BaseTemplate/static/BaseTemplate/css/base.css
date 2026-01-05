@@ -1,0 +1,70 @@
+/* Main below navbar */
+main { padding-top: 70px; }
+
+/* Cart indicator dot */
+.cart-dot {
+  position: absolute;
+  top: 0.25rem;
+  right: 0.1rem;
+  width: 0.6rem;
+  height: 0.6rem;
+  background: #dc3545;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+/* Footer styling */
+footer.site-footer {
+  background: var(--footer-bg);
+  color: var(--navbar-text);
+}
+
+footer.site-footer a {
+  color: var(--navbar-text);
+  text-decoration: none;
+}
+
+footer.site-footer a:hover {
+  color: var(--link);
+  text-decoration: underline;
+}
+
+.footer-desc p {
+  color: var(--muted);
+}
+
+.offcanvas.offcanvas-start { --bs-offcanvas-width: 260px; }
+
+.offcanvas .list-group-item { padding-top: .5rem; padding-bottom: .5rem; }
+
+/* Floating messages (Django messages) */
+.floating-messages {
+  position: fixed;
+  top: 76px; /* navbar height */
+  left: 50%; /* center horizontally */
+  transform: translateX(-50%);
+  z-index: 1080; /* above normal content */
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  align-items: center; /* center toasts horizontally */
+  pointer-events: none; /* allow clicks to pass through except on the toasts themselves */
+  width: min(90vw, 520px); /* responsive cap */
+  max-width: 520px;
+  padding: 0 0.5rem; /* small horizontal padding */
+}
+.floating-messages .toast {
+  pointer-events: auto; /* make toasts clickable (dismiss button) */
+  width: 100%;
+  min-width: 220px;
+  max-width: 100%;
+  box-shadow: 0 6px 18px rgba(2,6,23,0.35);
+}
+.floating-messages .btn-close {
+  opacity: .95;
+}
+/* 
+.navbar .input-group .btn i {
+  color: inherit !important;
+}
+ */

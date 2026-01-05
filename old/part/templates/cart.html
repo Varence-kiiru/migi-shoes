@@ -1,0 +1,87 @@
+{% extends 'base.html'%}
+{%load static%}
+{%block title%} Cart{%endblock%}
+{%block content %}
+
+   <link rel="stylesheet" href="css/style.css">
+<body>
+   <div class="container">
+    <div class=" shopping-cart">
+          <br/><br/>
+           <p><h1>Shopping cart</h1>
+           <p >View your cart</p></p>
+         <hr>
+         <form method="post">
+        <ul>
+            <li>
+              <!-- Selection checkbox -->
+              <input type="checkbox" >
+              <img src="{% static 'static/image/' %}" alt="My image"> <!--image of products-->
+              <!-- Product name -->
+              <span class="item-name"></span>
+
+              <!-- Quantity dropdown -->
+              <select name="quantity">
+ 
+              </select>
+
+              <!-- Price -->
+              <span class="item-price"></span>
+
+              <button type="submit" name="delete_item" class="delete-btn">
+                🗑
+              </button>
+            </li>
+             <li>
+              <!-- Selection checkbox -->
+              <input type="checkbox" >
+              <img src="{% static 'static/image/' %}" alt="My image2"> <!--image of products-->
+              <!-- Product name -->
+              <span class="item-name"></span>
+
+              <!-- Quantity dropdown -->
+              <select name="quantity">
+ 
+              </select>
+
+              <!-- Price -->
+              <span class="item-price"></span>
+
+              <button type="submit" name="delete_item" class="delete-btn">
+                🗑
+              </button>
+            </li>
+        </ul>
+
+      </form>
+    </div>
+
+    <div>
+    <br/><br/>
+    <div class="order-summary" >
+    <br/><br/>
+     <p><h2>Order Summary</h2>
+     
+      <div class="subtotal">
+        <span>Subtotal</span>
+        <span>${{ subtotal }}</span>
+      </div>
+      <br/>
+      <div class="discount">
+        <span>Discount</span>
+        <span>${{ discount }}</span>
+      </div>
+      <hr><div class="total">
+           <span>Total</span>
+           <span>${{ total }}</span>
+         </div>
+      <br/><br/><br/>
+      <a href="/checkout/">
+        <button class="checkout-btn">Proceed to Checkout</button>
+       </a>  </div>
+    </div>
+   </div>
+</body>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+{%endblock%}

@@ -1,0 +1,82 @@
+/* Page background & text inherit from admin variables so the admin theme toggle works. */
+body {
+  background: var(--body-bg);
+  color: var(--body-fg);
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  /* transition: background .18s ease, color .18s ease; */
+}
+
+/* Heading */
+.dashboard-heading {
+  margin: 0 0 0.5rem 0;
+  color: var(--body-fg);
+  font-weight: 600;
+  font-size: 1.25rem;
+}
+
+/* Layout */
+.dashboard-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+/* Card */
+.card {
+  flex: 1;
+  min-width: 220px;
+  padding: 1rem;
+  border: 1px solid var(--hairline-color);
+  border-radius: 6px;
+  background: var(--darkened-bg); /* subtle contrast against body */
+  color: var(--body-fg);
+  box-sizing: border-box;
+}
+
+.card--large {
+  flex: 2;
+  min-width: 320px;
+}
+
+/* Stat text */
+.stat-value--customers { font-size: 1.3rem; font-weight: 700; color: var(--link-fg); }
+.stat-value--orders { font-size: 1.3rem; font-weight: 700; color: var(--link-fg); }
+.stat-value--sales { font-size: 1.3rem; font-weight: 700; color: var(--link-fg); }
+
+/* Table */
+.summary-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: .5rem;
+  color: var(--body-fg);
+  background: transparent;
+  font-size: 0.95rem;
+}
+.summary-table th,
+.summary-table td {
+  padding: .45rem .5rem;
+  border-bottom: 1px solid var(--hairline-color);
+}
+.summary-table th {
+  text-align: left;
+  color: var(--body-quiet-color);
+  font-weight: 600;
+}
+.summary-table td.text-right {
+  text-align: right;
+}
+
+/* Responsive */
+@media (max-width: 720px) {
+  .dashboard-container { flex-direction: column; }
+}
+
+#recent-actions-container {
+    float: none;
+    margin: 2% auto 0 auto;
+    position: static !important;
+    padding-top: 2rem;
+    clear: both;
+}

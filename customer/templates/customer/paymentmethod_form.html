@@ -1,0 +1,133 @@
+{% extends 'customer/base.html' %}
+
+{% block dashboard_content %}
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <h1>{% if form.instance.pk %}Edit{% else %}Add{% endif %} Payment Method</h1>
+            <form method="post" class="customer-form">
+                {% csrf_token %}
+
+                <div class="mb-3">
+                    <label for="{{ form.title.id_for_label }}" class="form-label">{{ form.title.label }}</label>
+                    {{ form.title }}
+                    {% if form.title.errors %}
+                        <div class="invalid-feedback d-block">{{ form.title.errors|join:", " }}</div>
+                    {% endif %}
+                    <div class="form-text">{{ form.title.help_text }}</div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="{{ form.payment_type.id_for_label }}" class="form-label">{{ form.payment_type.label }}</label>
+                    {{ form.payment_type }}
+                    {% if form.payment_type.errors %}
+                        <div class="invalid-feedback d-block">{{ form.payment_type.errors|join:", " }}</div>
+                    {% endif %}
+                    <div class="form-text">{{ form.payment_type.help_text }}</div>
+                </div>
+
+                <!-- Card fields -->
+                <div id="card-fields" class="row g-3" style="display: none;">
+                    <div class="col-md-6">
+                        <label for="{{ form.card_num.id_for_label }}" class="form-label">{{ form.card_num.label }}</label>
+                        {{ form.card_num }}
+                        {% if form.card_num.errors %}
+                            <div class="invalid-feedback d-block">{{ form.card_num.errors|join:", " }}</div>
+                        {% endif %}
+                        <div class="form-text">{{ form.card_num.help_text }}</div>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="{{ form.exp_date.id_for_label }}" class="form-label">{{ form.exp_date.label }}</label>
+                        {{ form.exp_date }}
+                        {% if form.exp_date.errors %}
+                            <div class="invalid-feedback d-block">{{ form.exp_date.errors|join:", " }}</div>
+                        {% endif %}
+                        <div class="form-text">{{ form.exp_date.help_text }}</div>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="{{ form.cvv.id_for_label }}" class="form-label">{{ form.cvv.label }}</label>
+                        {{ form.cvv }}
+                        {% if form.cvv.errors %}
+                            <div class="invalid-feedback d-block">{{ form.cvv.errors|join:", " }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-6">
+                        <label for="{{ form.holder_name.id_for_label }}" class="form-label">{{ form.holder_name.label }}</label>
+                        {{ form.holder_name }}
+                        {% if form.holder_name.errors %}
+                            <div class="invalid-feedback d-block">{{ form.holder_name.errors|join:", " }}</div>
+                        {% endif %}
+                        <div class="form-text">{{ form.holder_name.help_text }}</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="{{ form.card_type.id_for_label }}" class="form-label">{{ form.card_type.label }}</label>
+                        {{ form.card_type }}
+                        {% if form.card_type.errors %}
+                            <div class="invalid-feedback d-block">{{ form.card_type.errors|join:", " }}</div>
+                        {% endif %}
+                        <div class="form-text">{{ form.card_type.help_text }}</div>
+                    </div>
+                </div>
+
+                <!-- M-Pesa fields -->
+                <div id="mpesa-fields" class="row g-3" style="display: none;">
+                    <div class="col-md-6">
+                        <label for="{{ form.mpesa_phone.id_for_label }}" class="form-label">{{ form.mpesa_phone.label }}</label>
+                        {{ form.mpesa_phone }}
+                        {% if form.mpesa_phone.errors %}
+                            <div class="invalid-feedback d-block">{{ form.mpesa_phone.errors|join:", " }}</div>
+                        {% endif %}
+                        <div class="form-text">{{ form.mpesa_phone.help_text }}</div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <div class="form-check">
+                        {{ form.is_default }}
+                        <label class="form-check-label" for="{{ form.is_default.id_for_label }}">
+                            {{ form.is_default.label }}
+                        </label>
+                        {% if form.is_default.errors %}
+                            <div class="invalid-feedback d-block">{{ form.is_default.errors|join:", " }}</div>
+                        {% endif %}
+                        <div class="form-text">{{ form.is_default.help_text }}</div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Save</button>
+                <a class="btn btn-link" href="{% url 'customer:paymentmethod_list' %}">Cancel</a>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const paymentTypeSelect = document.getElementById('{{ form.payment_type.id_for_label }}');
+    const cardFields = document.getElementById('card-fields');
+    const mpesaFields = document.getElementById('mpesa-fields');
+
+    function togglePaymentFields() {
+        const selectedType = paymentTypeSelect.value;
+
+        if (selectedType === 'card') {
+            cardFields.style.display = 'flex';
+            mpesaFields.style.display = 'none';
+        } else if (selectedType === 'mpesa') {
+            cardFields.style.display = 'none';
+            mpesaFields.style.display = 'flex';
+        } else {
+            cardFields.style.display = 'none';
+            mpesaFields.style.display = 'none';
+        }
+    }
+
+    if (paymentTypeSelect) {
+        paymentTypeSelect.addEventListener('change', togglePaymentFields);
+        // Initial toggle
+        togglePaymentFields();
+    }
+});
+</script>
+{% endblock %}

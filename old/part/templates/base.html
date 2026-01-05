@@ -1,0 +1,45 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ShoeMax</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+      <div class="topbar" >
+        <div class="brand">ShoeMax</div>
+            <form method="GET" action="/search/" class="search-bar">
+                <input type="text" name="q" placeholder="Search...">
+                <button type="submit">🔍</button>
+            </form>
+    </div>
+     <!--Navbar -->
+     <hr>
+    <nav>
+        <a href="/">Home</a> |
+        <a href="/cart/">Cart</a> 
+        
+    </nav>
+    <hr>
+
+   <!--Main content--> 
+    <div>
+        {% block content %}
+      <!--child templates inject content here -->
+         
+        {% endblock %}
+    </div>
+
+    <!--Footer--> 
+   
+    <br/><br/><br/><br/><br/><br/><br/>
+    <br/><br/><br/><br/><br/><br/><br/>
+    <br/><br/><br/><br/><br/><br/><br/>
+    <br/><br/><br/><br/><br/><br/><br/>
+    <br/><br/><br/><br/><br/><br/><br/>
+    <br/><br/><br/><br/><br/><br/><br/>
+    <hr>
+    <footer>
+        <p>&copy; {% now "Y" %} Migi Shoes</p>
+    </footer>

@@ -1,0 +1,110 @@
+body {
+    background: linear-gradient(to right, #5faaff, #feb47b);
+
+}
+
+.aboutus {
+    background-image: url('../images/img1.jpeg');
+    width: 100%;
+    height: 50vh;
+    background-position: 25%;
+    background-size: cover;
+    background-repeat: repeat-y;
+    border-radius: 10px;
+}
+
+.aboutus p {
+    font-size: 5vh;
+    text-align: center;
+    padding-top: 5%;
+    font-family:'Helvetica Neue', sans-serif;
+    color: rgb(255, 255, 255);
+    text-shadow: 2px 2px 4px rgb(0, 0, 0);
+}
+
+.abouttext {
+    background-image: url('../images/img3.jpg');
+    width: 100%;
+    height: 50vh;
+    background-position: 100%;
+    background-size: cover;
+    background-repeat: repeat;
+    border-radius: 10px;
+}
+
+.abouttext h2 {
+    font-size: 4vh;
+    line-height: 1;
+    padding: 0.25rem 0;
+    text-align: center;
+}
+
+.mission {
+    background-image: url('../images/img2.jpg');
+    width: 100%;
+    height: 50vh;
+    background-position: 25%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 10px;
+}
+
+
+.mission p {
+    text-align: center;
+    padding-top: 5%;
+    font-size: 4vh;
+    font-family:'Helvetica Neue', sans-serif;
+    color: rgb(255, 255, 255);
+    text-shadow: 2px 2px 4px rgb(0, 0, 0);
+}
+
+.different {
+    background-image: url('../images/img4.jpg');
+    width: 100%;
+    height: 50vh;
+    background-position: 25%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 10px;
+}
+
+
+.vision {
+    background-image: url('../images/img5.avif');
+    width: 100%;
+    height: 50vh;
+    background-position: 25%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 10px;
+}
+
+h1 {
+    text-align: center;
+    font-size: 14vh;
+    font-family:'Helvetica Neue', sans-serif;
+    color: rgb(0, 0, 0);
+    text-shadow: 2px 2px 4px rgb(255, 255, 255);
+}
+
+h2 {
+    text-align: center;
+    padding-top: 5%;
+    font-size: 5vh;
+    font-family:'Helvetica Neue', sans-serif;
+    color: rgb(255, 255, 255);
+    text-shadow: 2px 2px 4px rgb(0, 0, 0);
+}
+
+p {
+    text-align: center;
+
+    padding-top: 5%;
+    padding-left: 5%;
+    padding-right: 5%;
+    font-size: 4vh;
+    font-family:'Helvetica Neue', sans-serif;
+    color: rgb(255, 255, 255);
+    text-shadow: 2px 2px 4px rgb(0, 0, 0);
+}

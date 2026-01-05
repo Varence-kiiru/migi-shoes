@@ -1,0 +1,47 @@
+{% extends "admin/dashboard.html" %}
+
+{% load static %}
+
+{% block content %}
+<h1 class="dashboard-heading">Pricing Manager — Price Highlights</h1>
+
+<section>
+  <h3>Highest Priced Shoes</h3>
+  {% if top_expensive %}
+    <ol class="pricing-list">
+      {% for s in top_expensive %}
+        <li style="display:flex;align-items:center;gap:0.5rem">
+          {% with s.images.all.0 as thumb %}
+            {% if thumb %}
+              <a href="{{ s.get_absolute_url }}"><img src="{{ thumb.image.url }}" alt="{{ s.name }}" style="width:40px;height:40px;object-fit:cover;border-radius:4px"></a>
+            {% endif %}
+          {% endwith %}
+          <span>{{ s.name }} — ${{ s.price }}</span>
+        </li>
+      {% endfor %}
+    </ol>
+  {% else %}
+    <p>No shoes found.</p>
+  {% endif %}
+</section>
+
+<section style="margin-top:1rem">
+  <h3>Lowest Priced Shoes</h3>
+  {% if top_cheap %}
+    <ol class="pricing-list">
+      {% for s in top_cheap %}
+        <li style="display:flex;align-items:center;gap:0.5rem">
+          {% with s.images.all.0 as thumb %}
+            {% if thumb %}
+              <a href="{{ s.get_absolute_url }}"><img src="{{ thumb.image.url }}" alt="{{ s.name }}" style="width:40px;height:40px;object-fit:cover;border-radius:4px"></a>
+            {% endif %}
+          {% endwith %}
+          <span>{{ s.name }} — ${{ s.price }}</span>
+        </li>
+      {% endfor %}
+    </ol>
+  {% else %}
+    <p>No shoes found.</p>
+  {% endif %}
+</section>
+{% endblock %}

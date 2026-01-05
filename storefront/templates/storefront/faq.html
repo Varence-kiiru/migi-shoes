@@ -1,0 +1,175 @@
+{% extends "BaseTemplate/base.html" %}
+{% load static %}
+{% block title %}FAQ - Migi Shoes{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'css/storefront/about.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <div class="about-page">
+        <div class="container">
+        <div class="about-box">
+            <div class="about-box-text">
+                <h1>Frequently Asked Questions</h1>
+                <p>Find answers to common questions</p>
+            </div>
+        </div>
+
+        <div class="about-para-box">
+            <div class="about-para-box-text">
+                <h2>Can't find what you're looking for? Contact us and we'll be happy to help!</h2>
+            </div>
+        </div>
+
+        <div class="mission-box">
+            <div class="mission">
+                <h2>Ordering & Payment</h2>
+                <div class="faq-item">
+                    <h4>How do I place an order?</h4>
+                    <p>Browse our products, add items to your cart, and proceed to checkout. You'll need to create an account or sign in to complete your purchase.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>What payment methods do you accept?</h4>
+                    <p>We accept credit/debit cards, M-Pesa mobile payments, and cash on delivery.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>Is my payment information secure?</h4>
+                    <p>Yes, we use industry-standard encryption and work with trusted payment processors. We never store your credit card information on our servers.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="different-box">
+            <div class="different">
+                <h2>Shipping & Delivery</h2>
+                <div class="faq-item">
+                    <h4>How long does shipping take?</h4>
+                    <p>Standard shipping takes 3-7 business days within Kenya. Express shipping is available for faster delivery.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>Do you ship internationally?</h4>
+                    <p>Currently, we only ship within Kenya. International shipping may be available in the future.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>What are the shipping costs?</h4>
+                    <p>Shipping costs vary based on location and order size. Standard shipping is KES 200, express shipping is KES 500.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="vision-box">
+            <div class="vision">
+                <h2>Returns & Exchanges</h2>
+                <div class="faq-item">
+                    <h4>What is your return policy?</h4>
+                    <p>You can return items within 30 days of delivery for a full refund, provided they are unused and in original packaging.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>How do I return an item?</h4>
+                    <p>Contact our customer service team to initiate a return. We'll provide a return label and instructions.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>How long do refunds take?</h4>
+                    <p>Once we receive your return, refunds are processed within 5-7 business days to your original payment method.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="mission-box">
+            <div class="mission">
+                <h2>Size & Fit</h2>
+                <div class="faq-item">
+                    <h4>How do I find my shoe size?</h4>
+                    <p>Check our size guide for detailed measurements. We recommend measuring your feet for the most accurate fit.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>What if my shoes don't fit?</h4>
+                    <p>You can exchange for a different size within our return window, subject to availability.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>Do you offer half sizes?</h4>
+                    <p>Yes, we carry half sizes for most of our shoes. Check the product page for available sizes.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="different-box">
+            <div class="different">
+                <h2>Account & Orders</h2>
+                <div class="faq-item">
+                    <h4>How do I create an account?</h4>
+                    <p>Click "Sign Up" in the top navigation and fill out the registration form with your details.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>How do I track my order?</h4>
+                    <p>Log in to your account and go to "My Orders" to see tracking information for your purchases.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>Can I modify my order after placing it?</h4>
+                    <p>Orders can only be modified within 1 hour of placement. Contact customer service immediately if needed.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="vision-box">
+            <div class="vision">
+                <h2>Product Information</h2>
+                <div class="faq-item">
+                    <h4>Are your products authentic?</h4>
+                    <p>Yes, all our products are 100% authentic and sourced directly from authorized manufacturers and distributors.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>Do you offer warranties?</h4>
+                    <p>Most of our shoes come with manufacturer warranties. Check the product description for specific warranty information.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>Can I customize shoes?</h4>
+                    <p>Currently, we offer standard sizes and colors. Custom options may be available for select items.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="mission-box">
+            <div class="mission">
+                <h2>Customer Support</h2>
+                <div class="faq-item">
+                    <h4>How do I contact customer service?</h4>
+                    <p>You can reach us via email{% if company.contact_email %}, phone{% if company.contact_phone %}, or through our contact form{% endif %}{% endif %}.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>What are your customer service hours?</h4>
+                    {% if company.business_hours %}
+                    <p>Our customer service team is available {{ company.business_hours }}.</p>
+                    {% else %}
+                    <p>Our customer service team is available during regular business hours.</p>
+                    {% endif %}
+                </div>
+                <div class="faq-item">
+                    <h4>Do you have a physical store?</h4>
+                    <p>Currently, we operate exclusively online. We're working on opening physical stores in the future.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="different-box">
+            <div class="different">
+                <h2>Still Need Help?</h2>
+                <p>Can't find the answer you're looking for? Our customer service team is here to help!</p>
+                <p><strong>Contact us:</strong></p>
+                {% if company.contact_email %}
+                <p>Email: <a href="mailto:{{ company.contact_email }}">{{ company.contact_email }}</a></p>
+                {% endif %}
+                {% if company.contact_phone %}
+                <p>Phone: <a href="tel:{{ company.contact_phone }}">{{ company.contact_phone }}</a></p>
+                {% endif %}
+                {% if company.business_hours %}
+                <p>Hours: {{ company.business_hours }}</p>
+                {% endif %}
+            </div>
+        </div>
+        </div>
+    </div>
+{% endblock %}

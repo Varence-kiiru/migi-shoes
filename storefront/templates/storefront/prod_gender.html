@@ -1,0 +1,63 @@
+{% extends "BaseTemplate/base.html" %}
+{% load static %}
+{% block title %}Shoemax - Shop by Gender{% endblock %}
+{% block extra_head %}
+  <link rel="stylesheet" href="{% static 'css/storefront/category.css' %}">
+  <style>
+    .page{
+        text-decoration: none;
+        font-size:1rem; 
+        color: #ffffff; 
+        background-color: rgb(40, 41, 41);
+        padding: 4px 8px;
+        border-radius: 6px;
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+<body>
+  {% if gender == 'M' %}
+    <h1 class="title">Discover our latest <strong>male</strong> products</h1>
+  {% elif gender == 'W' %}
+    <h1 class="title">Explore our <strong>women’s</strong> collection</h1>
+  {% elif gender == 'K' %}
+    <h1 class="title">Check out the newest <strong>kids’</strong> shoes</h1>
+  {% endif %}
+
+  {% if page_obj %}
+    <div class="container">
+      {% for shoe in page_obj %}
+        <div class="shoebox">
+          {% if shoe.images.first %}
+            <img src="{{ shoe.images.first.image.url }}" alt="{{ shoe.name }}" class="image">
+          {% endif %}
+          <div style="padding: 1rem;">
+            <h2 class="name">{{ shoe.name }}</h2>
+            <h3 class="price">KSh {{ shoe.price }}</h3>
+            <a href="{% url 'products:shoe_details' shoe.shoe_id %}" class="detailbtn">View Details</a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <br><br>
+    <h2 class="unavailable">No products available in this category at the moment.</h2>
+  {% endif %}
+
+  <div class="pagination" style="margin-top: 2rem; display: flex; justify-content: center; gap: 1rem;">
+    {% if page_obj.has_previous %}
+      <a href="?page=1" class="page">First</a>
+      <a href="?page={{ page_obj.previous_page_number }}" class="page">Previous</a>
+    {% endif %}
+
+    <span style="font-size:1.4rem; ">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+
+
+    {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}" class="page">Next</a>
+      <a href="?page={{ page_obj.paginator.num_pages }}" class="page">Last</a>
+    {% endif %}
+  </div>
+</body>
+{% endblock %}

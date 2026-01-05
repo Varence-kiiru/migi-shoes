@@ -1,0 +1,159 @@
+{% extends "BaseTemplate/base.html" %}
+{% load static %}
+{% block title %}Terms of Service - Migi Shoes{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'css/storefront/about.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <div class="about-page">
+        <div class="container">
+        <div class="about-box">
+            <div class="about-box-text">
+                <h1>Terms of Service</h1>
+                <p>Please read these terms carefully</p>
+            </div>
+        </div>
+        <div class="about-para-box">
+            <div class="about-para-box-text">
+                <h2>Welcome to Migi Shoes. By accessing or using our website, you agree to be bound by these Terms of Service.</h2>
+                <p>If you do not agree to these terms, please do not use our website or services.</p>
+            </div>
+        </div>
+
+        <div class="mission-box">
+            <div class="mission">
+                <h2>Use of Our Website</h2>
+                <p>You may use our website for lawful purposes only. You agree not to:</p>
+                <ul>
+                    <li>Use the website in any way that violates applicable laws or regulations</li>
+                    <li>Attempt to gain unauthorized access to our systems</li>
+                    <li>Interfere with the proper functioning of the website</li>
+                    <li>Use automated tools to access our website without permission</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="different-box">
+            <div class="different">
+                <h2>Account Registration</h2>
+                <p>To make purchases, you may need to create an account. You are responsible for:</p>
+                <ul>
+                    <li>Providing accurate and complete information</li>
+                    <li>Maintaining the confidentiality of your account credentials</li>
+                    <li>All activities that occur under your account</li>
+                    <li>Notifying us immediately of any unauthorized use</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="vision-box">
+            <div class="vision">
+                <h2>Orders and Payment</h2>
+                <p>All orders are subject to acceptance and availability. When you place an order:</p>
+                <ul>
+                    <li>You offer to purchase the products at the listed price</li>
+                    <li>Payment must be made in full before order processing</li>
+                    <li>We reserve the right to refuse or cancel orders</li>
+                    <li>Prices are subject to change without notice</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="mission-box">
+            <div class="mission">
+                <h2>Shipping and Delivery</h2>
+                <p>We strive to deliver your orders accurately and on time. Please note:</p>
+                <ul>
+                    <li>Delivery times are estimates and not guaranteed</li>
+                    <li>Risk of loss passes to you upon delivery</li>
+                    <li>You must inspect goods upon delivery and report any issues</li>
+                    <li>Additional charges may apply for expedited shipping</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="different-box">
+            <div class="different">
+                <h2>Returns and Refunds</h2>
+                <p>We want you to be satisfied with your purchase. Our return policy:</p>
+                <ul>
+                    <li>Items must be returned within 30 days of delivery</li>
+                    <li>Items must be unused and in original packaging</li>
+                    <li>Refunds will be processed within 5-7 business days</li>
+                    <li>Return shipping costs may apply</li>
+                    <li>Custom or personalized items are not returnable</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="vision-box">
+            <div class="vision">
+                <h2>Product Information</h2>
+                <p>We make every effort to display products accurately. However:</p>
+                <ul>
+                    <li>Colors may vary due to monitor settings</li>
+                    <li>Product specifications may change without notice</li>
+                    <li>We reserve the right to correct errors in pricing or descriptions</li>
+                    <li>Product availability is not guaranteed</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="mission-box">
+            <div class="mission">
+                <h2>Intellectual Property</h2>
+                <p>All content on our website is protected by intellectual property laws:</p>
+                <ul>
+                    <li>Website content, logos, and trademarks are our property</li>
+                    <li>You may not reproduce or distribute our content without permission</li>
+                    <li>User-generated content remains your responsibility</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="different-box">
+            <div class="different">
+                <h2>Limitation of Liability</h2>
+                <p>Our liability is limited to the maximum extent permitted by law. We are not liable for:</p>
+                <ul>
+                    <li>Indirect, incidental, or consequential damages</li>
+                    <li>Loss of profits, data, or business opportunities</li>
+                    <li>Third-party actions or content</li>
+                    <li>Website downtime or technical issues</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="vision-box">
+            <div class="vision">
+                <h2>Privacy</h2>
+                <p>Your privacy is important to us. Please review our Privacy Policy, which is incorporated into these Terms of Service.</p>
+            </div>
+        </div>
+
+        <div class="mission-box">
+            <div class="mission">
+                <h2>Changes to Terms</h2>
+                <p>We may update these Terms of Service at any time. Continued use of our website constitutes acceptance of the updated terms.</p>
+            </div>
+        </div>
+
+        <div class="different-box">
+            <div class="different">
+                <h2>Contact Information</h2>
+                <p>If you have questions about these Terms of Service, please contact us at:</p>
+                {% if company.contact_email %}
+                <p>Email: <a href="mailto:{{ company.contact_email }}">{{ company.contact_email }}</a></p>
+                {% endif %}
+                {% if company.contact_phone %}
+                <p>Phone: <a href="tel:{{ company.contact_phone }}">{{ company.contact_phone }}</a></p>
+                {% endif %}
+            </div>
+        </div>
+        </div>
+    </div>
+{% endblock %}

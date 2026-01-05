@@ -1,0 +1,32 @@
+[
+{
+    "model": "customer.customer",     
+    "pk": 1,
+    "fields": {
+        "user": 1,
+        "date_of_birth": "2025-11-05",
+        "gender": "M",
+        "phone": "12345678",
+        "mobile": "5123 9090",
+        "shipping_address": "",
+        "billing_address": "",
+        "credit_card": "4321123409877890",
+        "theme_preference": "light"
+    }
+},
+{
+    "model": "customer.customer",
+    "pk": 2,
+    "fields": {
+        "user": 2,
+        "date_of_birth": null,
+        "gender": "",
+        "phone": "",
+        "mobile": "",
+        "shipping_address": "",
+        "billing_address": "",
+        "credit_card": "",
+        "theme_preference": "light"
+    }
+}
+]

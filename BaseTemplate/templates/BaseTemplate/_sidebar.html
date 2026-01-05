@@ -1,0 +1,37 @@
+{% load static %}
+<!-- Sidebar Collapsible -->
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasSidebar" aria-labelledby="offcanvasSidebarLabel">
+    <div class="offcanvas-header border-bottom">
+        <h5 class="offcanvas-title" id="offcanvasSidebarLabel">Menu</h5>
+        <button type="button" class="{% if theme == 'dark' %}btn-close btn-close-white text-reset{% else %}btn-close text-reset{% endif %}" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    
+    <div class="offcanvas-body p-0">
+        <nav class="list-group list-group-flush">
+            <a href="{% url 'storefront:home' %}" class="list-group-item list-group-item-action border-0 {% if active_class == 'home' %}active{% endif %}">Home</a>
+            <div class="list-group-item border-0">
+                <div class="fw-bold mb-2">Categories</div>
+                <a href="{% url 'products:by_gender' 'M' %}" class="d-block ms-2 {% if active_class == 'M' %}text-decoration-underline{% endif %}">Men</a>
+                <a href="{% url 'products:by_gender' 'W' %}" class="d-block ms-2 {% if active_class == 'W' %}text-decoration-underline{% endif %}">Women</a>
+                <a href="{% url 'products:by_gender' 'K' %}" class="d-block ms-2 {% if active_class == 'K' %}text-decoration-underline{% endif %}">Kids</a>
+                </div>
+            <a href="{% url 'storefront:brand_list' %}" class="list-group-item list-group-item-action border-0 {% if active_class == 'brands' %}active{% endif %}">Brands</a>
+            <a href="{% url 'cart:summary' %}" class="list-group-item list-group-item-action border-0 {% if active_class == 'cart' %}active{% endif %}">My cart</a>
+            <a href="{% url 'products:wishlist' %}" class="list-group-item list-group-item-action border-0 {% if active_class == 'wishlist' %}active{% endif %}">Wishlist</a>
+            <a href="{% url 'customer:customer_profile' %}" class="list-group-item list-group-item-action border-0 {% if active_class == 'account' %}active{% endif %}">My account</a>
+            <a href="{% url 'customer:customer_settings' %}" class="list-group-item list-group-item-action border-0 {% if active_class == 'settings' %}active{% endif %}">Settings</a>
+            <a href="{% url 'storefront:contact' %}" class="list-group-item list-group-item-action border-0 {% if active_class == 'contactus' %}active{% endif %}">Contact</a>
+            <a href="{% url 'storefront:about' %}" class="list-group-item list-group-item-action border-0 {% if active_class == 'aboutus' %}active{% endif %}">About us</a>
+            <div class="list-group-item border-0">
+                {% if user.is_authenticated %}
+                <form method="post" action="{% url 'customer:logout' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger w-100">Logout</button>
+                </form>
+                {% else %}
+                <a href="{% url 'accounts:login' %}" class="btn btn-primary w-100">Log in</a>
+                {% endif %}
+            </div>
+        </nav>
+    </div>
+</div>

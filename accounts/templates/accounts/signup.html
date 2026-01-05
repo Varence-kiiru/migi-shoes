@@ -1,0 +1,99 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'accounts/css/signup.css' %}">
+                            <!-- header imports -->
+    <link rel="stylesheet" href="{% static 'accounts/css/header.css' %}">
+    <!--import icons-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!--import font-->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="shop-header"> <!--The class designs the nav bar-->
+        <div class="menu-icon">
+            <a href="/">
+                <i class="fas fa-home"></i> <!--The specific icon for menu-->
+            </a>
+            
+        </div>
+
+        <div class="shop-name">SHOEMAX</div>
+
+        <div class="search-bar"></div> <!--  will not be visible -->
+    </header>
+    <div class="container">
+        <div class="signup-box">
+            <div class="signup-items">
+                <div class="signup-text">Sign Up!</div>
+                <div class="information-input">
+                    <form method="post">
+                        {% csrf_token %}
+
+                        <div class="username-box">
+                            <div class="username-label">Username</div>
+                            <div class="username-input-box">
+                                    {{form.username}}
+                                    {% if form.username.errors %}
+                                        <div class="error">
+                                            {% for error in form.username.errors %}
+                                            <p>{{ error }}</p>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                            </div>
+                        </div> 
+                        <div class="email-box">
+                            <div class="email-label">Email</div>
+                            <div class="email-input-box">
+                                    {{form.email}}
+                                    {% if form.email.errors %}
+                                        <div class="error">
+                                            {% for error in form.email.errors %}
+                                            <p>{{ error }}</p>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                            </div>
+                        </div> 
+                        <div class="password-box"> 
+                            <div class="password-label">Password</div>
+                            <div class="password-input-box">
+                                    {{form.password1}}
+                                    {% if form.password1.errors %}
+                                        <div class="error">
+                                            {% for error in form.password1.errors %}
+                                            <p>{{ error }}</p>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                            </div>
+                            <div class="confirm-password-label">Confirm Password</div>
+                            <div class="confirm-password-input-box">
+                                    {{form.password2}}
+                                    {% if form.password2.errors %}
+                                        <div class="error">
+                                            {% for error in form.password2.errors %}
+                                            <p>{{ error }}</p>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                             </div> 
+                        </div> 
+                        <div class="signup-button-box"> 
+                                <button class="signup-button" type="submit">Sign Up</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    
+</body>
+</html>

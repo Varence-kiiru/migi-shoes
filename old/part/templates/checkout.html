@@ -1,0 +1,67 @@
+
+{% extends 'base.html'%}
+{%load static%}
+{%block title%} Cart{%endblock%}
+{%block content %}
+<link rel="stylesheet" href="css/style.css">
+ <body >
+      <div class="checkout">
+          <!-- to the left of the page-->
+           <h3 >Checkout</h3>
+           <p class="shipping-add">Shipping address</p><!-- Place to ship which can be changed with edit button -->
+          <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+          <form method="post">
+            <h4>Payment method</h4>
+            
+            <ul>
+              <li>
+                <input type="checkbox" >
+                <span class="payment-method"></span>
+                <br/>
+              </li>
+
+              <li>
+                <input type="checkbox" >
+                <span class="payment-method"></span>
+                <br/>
+              </li>
+              <li>
+                <input type="checkbox" >
+                <span class="payment-method"></span>
+                <br/>
+              </li>
+              
+            </ul>
+            
+          </form>
+             
+        </div>
+
+        <div class="order-summary"> 
+          <!--to the right of the page-->
+           <h5>Order Summary</h5>
+           
+               <div class="subtotal">
+                  <span>Subtotal</span>
+                  <span>${{ subtotal }}</span>
+                </div>
+                <div class="discount">
+                  <span>Discount</span>
+                  <span>${{ discount }}</span>
+                </div>
+                <hr><div class="shipping-fee">
+                      <span>Shipping Fee</span>
+                      <span>${{ shipping }}</span>
+                    </div>
+                <hr><div class="total">
+                      <span>Total</span>
+                       <span>${{ total }}</span>
+                    </div>
+
+             <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+            <button class="checkout-btn">Submit orders</button>
+
+        </body>
+
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+{%endblock%}

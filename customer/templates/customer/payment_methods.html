@@ -1,0 +1,43 @@
+{% extends 'customer/base.html' %}
+
+{% block dashboard_content %}
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1>Payment Methods</h1>
+        <form method="get" action="{% url 'customer:paymentmethod_add' %}">
+            <button type="submit" class="btn btn-primary">Add new payment method</button>
+        </form>
+    </div>
+
+    {% if payment_methods %}
+        <ul class="list-group">
+            {% for pm in payment_methods %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="fw-bold">{{ pm.title }}</div>
+                        <div class="text-muted">{{ pm.masked}} &middot; Expires {{ pm.exp_date|date:"M/Y" }}</div>
+                    </div>
+                    <div>
+                        {% if not pm.is_default %}
+                            <form method="post" action="{% url 'customer:paymentmethod_set_default' pm.pk %}" class="d-inline">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-sm btn-secondary">Set as default</button>
+                            </form>
+                        {% else %}
+                            <span class="badge bg-primary">Default</span>
+                        {% endif %}
+
+                        <a href="{% url 'customer:paymentmethod_delete' pm.pk %}" class="btn btn-sm btn-link text-danger">Delete</a>
+                        <form method="get" action="{% url 'customer:paymentmethod_edit' pm.pk %}" class="d-inline">
+                            <button type="submit" class="btn btn-sm btn-outline-primary">Edit</button>
+                        </form>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>You have no saved payment methods.</p>
+    {% endif %}
+</div>
+
+{% endblock %}

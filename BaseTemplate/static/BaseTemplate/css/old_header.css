@@ -1,0 +1,311 @@
+*{
+  box-sizing: border-box;
+}
+body{
+    background: #dbdedf;
+    margin: 0px;
+    width: 100%;
+}
+.shop-header {
+  position: fixed; /* Keeps header visible while scrolling */
+  top: 0; /* Stick it to the top of the viewport */
+  right:0;
+  width: 83%; /* Prevents shrinking and keeps full width */
+  z-index: 1000; /* Ensures it's above other content */
+  display: flex; /*to control the position of items inside horizontally and vertically*/
+  align-items: center; /* Vertically centers items within the header */
+  justify-content: space-between; /* Places first and last items at edges, with space in between */
+  background-color: #000;
+  color: white; /*for icons and text*/
+  padding: 12px 15px; /*space btw border and items inside*/
+}
+
+.shop-name{
+  padding-left: 7rem;
+  font-size: 2.0rem;
+  font-weight: bolder;
+  margin-left: 15px;
+  color: #ffffff;
+  text-decoration: none;
+  transition: color 0.4s ease;
+}
+
+.search-bar { /*Search bar*/
+  display: flex;
+  align-items: center;
+  background-color: #333;
+  border-radius: 20px;
+  padding: 5px 10px;
+  width: 200px;
+}
+
+.search-bar input { /*Text inside*/
+  background: none;
+  border: none;
+  outline: none;
+  color: white;
+  width: 100%;
+  padding: 5px;
+}
+
+.search-bar i { /*Magnifying glass search icon*/
+  color: #f5f1f1;
+  margin-left: 5px;
+  transition: color 0.4s ease;
+  transition: transform 0.3s ease;
+}
+
+.icon-group {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding-right:40px ;
+}
+
+.icon i { /*having the class icon + <i /i>*/
+  font-size: 22px;
+  color: white;
+  transition: color 0.4s ease;
+  transition: transform 0.3s ease;
+}
+
+.cart-icon {
+  position: relative;            /*Works together with absolute, it makes the*/
+  transition: color 0.4s ease;
+  transition: transform 0.3s ease;   /*cart the parent where the child(absolute) can
+                                    design a dot on it*/
+}
+
+.cart-dot {
+  position: absolute; /*The child*/
+  top: 0;
+  right: -5px;
+  background-color: #9ACD32;
+  border-radius: 50%;
+  width: 8px;
+  height: 8px;
+}
+.shop-name:hover,.icon i:hover,.cart-icon i:hover,.search-bar i:hover{
+  color: #ccc;
+}
+.icon i:hover,.cart-icon i:hover,.search-bar i:hover{
+  transform: scale(1.2,1.2);
+}
+footer{
+    margin-top: 3rem;
+    padding: 3rem;
+    padding-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(0, 0, 0);
+}
+.footer-desc{
+  width: 60%;
+  padding-right: 2rem;
+}
+.footer-desc h3, footer h4{
+  font-family: Helvetica, serif;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+footer ul a{
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 1.2rem;
+}
+footer ul a:hover{
+  color: #ccc;
+  text-decoration: underline;
+}
+footer p{
+  padding-right: 7rem; 
+  color: #ffffff; 
+  font-family: serif; 
+  letter-spacing: 0.5px;
+  line-height: 1.2;
+}
+nav>ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 17%;
+    background: linear-gradient(to bottom,black,rgb(66, 65, 65));
+    position: fixed;
+    height: 100%;
+    overflow: auto;
+    padding-top: 2rem;
+    box-sizing: border-box;
+}
+nav img{
+  max-width: 100px;
+  height: auto;
+  padding-left: 1rem;
+  padding-bottom: 1rem;
+  filter: brightness(0) invert(1);
+}
+nav>ul>li{
+  margin-bottom: 0.3rem;
+}
+nav>ul>ul>li>a {
+    display: block;
+    color: #ffffff;
+    padding: 8px 16px;
+    text-decoration: none;
+    font-family:sans-serif;
+    font-size:1.3rem ;
+    font-weight: bold;
+    padding-left: 2rem;
+    transition: background-color 0.4s ease;
+}
+nav>ul>li>a {
+    display: block;
+    color: #ffffff;
+    padding: 8px 16px;
+    text-decoration: none;
+    font-family:sans-serif;
+    font-size:1.4rem ;
+    font-weight: bolder;
+    padding-left: 2rem;
+    transition: background-color 0.4s ease;
+}
+
+li a.active {
+    color: white;
+    border-top: 2px solid #565656 ;
+    border-bottom:2px solid #565656;
+    background: #262525;
+}
+
+li a:hover:not(.active) {
+    background-color: #656565;
+    color: white;
+}
+#no-hover a:hover:not(.active){
+  background-color: transparent;
+}
+
+@media (max-width: 780px) {
+  nav>ul {
+    width: 30%;
+    padding-top: 1rem;
+}
+nav img{
+  padding-left: 0.5rem;
+  padding-bottom: 0.5rem;
+  max-width: 50px;
+}
+nav>ul>li{
+  margin-bottom: 0.1rem;
+}
+nav>ul>ul>li>a{
+    padding: 4px 8px;
+    font-size:0.6rem ;
+    padding-left: 1rem;
+}
+nav>ul>li>a {
+    padding: 4px 8px;
+    font-size:0.7rem ;
+    padding-left: 1rem;
+}
+.logout{
+  font-size: 0.7rem !important;
+}
+body>div{
+  margin-left:30% !important;
+  width: 70% !important;
+}
+
+footer{
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    padding-top: 0.5rem;
+}
+.footer-desc{
+  width: 70%;
+  padding-left: 3rem;
+  padding-right: 0;
+}
+.footer-desc h3, footer h4{
+  margin-bottom: 0.3rem;
+  font-size: 0.6rem;
+}
+
+footer p{
+  padding-right: 0; 
+  letter-spacing: 0.3px;
+  line-height: 1.4;
+  font-size: 0.4rem !important;
+}
+
+footer ul a{
+  font-size: 0.5rem;
+}
+footer ul, footer h4{
+  padding-left: 1rem !important;
+}
+footer ul{
+  line-height: 0.8 !important;
+}
+.link{
+  width:30%;
+}
+
+.shop-header {
+  width: 70%; /* Prevents shrinking and keeps full width */
+  display: flex; /*to control the position of items inside horizontally and vertically*/
+  align-items: center; /* Vertically centers items within the header */
+  justify-content: space-between; /* Places first and last items at edges, with space in between */
+  padding: 6px 7px; /*space btw border and items inside*/
+}
+
+.shop-name{
+  padding-left: 0.2rem;
+  font-size: 0.8rem;
+  font-weight: bolder;
+  margin-left: 2px;
+}
+
+.search-bar { /*Search bar*/
+  display: flex;
+  align-items: center;
+  padding: 0;
+  font-size: 0.8rem;
+  width: 100px;
+  margin-left: 0.5rem;
+}
+
+.search-bar input { /*Text inside*/
+  width: 100%;
+  font-size: 0.6rem;
+  padding: 2px;
+}
+
+.search-bar i { /*Magnifying glass search icon*/
+  font-size: 0.8rem;
+  margin-left: 2px;
+}
+
+.icon-group {
+  margin-left: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-right:20px ;
+}
+
+.icon i { /*having the class icon + <i /i>*/
+  font-size: 11px;
+}
+
+.cart-dot {
+  position: absolute; /*The child*/
+  top: 1;
+  right: -3px;
+  border-radius: 50%;
+  width: 6px;
+  height: 6px;
+}
+}

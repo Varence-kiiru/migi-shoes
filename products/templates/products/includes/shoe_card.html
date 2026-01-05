@@ -1,0 +1,44 @@
+{% load static %}
+<!-- https://bootstrapexamples.com/@juanmz/product-card -->
+<div class="card h-100 shadow-sm">
+    {% with shoe.images.first as main_image %}
+        <div class="position-relative">
+            {% if main_image %}
+                <img src="{{ main_image.image.url }}" class="card-img-top img-fluid" alt="{{ shoe.name }}" style="height: 200px; object-fit: cover;">
+            {% else %}
+                <img src="{% static 'images/image1.png' %}" class="card-img-top img-fluid" alt="{{ shoe.name }}" style="height: 200px; object-fit: cover;">
+            {% endif %}
+
+            <!-- on sale badge  -->
+            {% if shoe.discount and shoe.discount > 0 %}
+                <span class="badge bg-danger text-white position-absolute" style="top:8px; left:8px; font-size: 0.75rem;">On sale</span>
+            {% endif %}
+        </div>
+    {% endwith %}
+    <div class="card-body d-flex flex-column p-3">
+        <h5 class="card-title mb-1 h6">{{ shoe.name|truncatechars:30 }}</h5>
+        <p class="text-muted mb-2 small">{{ shoe.category }}</p>
+        <p class="card-text mb-3 small d-none d-sm-block">{{ shoe.description|truncatewords:15 }}</p>
+        <div class="mt-auto d-flex justify-content-between align-items-center">
+            <div>
+                <!-- out of stock -->
+                {% if not shoe.is_available %}
+                    <div><span class="fw-semibold text-danger small">Out of stock</span></div>
+                {% endif %}
+
+                {% if shoe.discount and shoe.discount > 0 %}
+                    <div>
+                        <span class="fw-semibold text-danger small">KSh {{ shoe.price|floatformat:2 }}</span>
+                        <small class="text-muted ms-1"><del>KSh {{ shoe.original_price|floatformat:2 }}</del></small>
+                    </div>
+                {% else %}
+                    {% if shoe.is_available %}
+                        <span class="fw-semibold small">KSh {{ shoe.price|floatformat:2 }}</span>
+                    {% endif %}
+                {% endif %}
+            </div>
+
+            <a href="{% url 'products:shoe_details' shoe.shoe_id %}" class="btn btn-sm btn-outline-primary">View</a>
+        </div>
+    </div>
+</div>

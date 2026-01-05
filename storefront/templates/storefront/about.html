@@ -1,0 +1,50 @@
+{% extends "BaseTemplate/base.html" %}
+{% load static %}
+{% block title %}About Us - Migi Shoes{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'css/storefront/about.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <div class="about-page">
+        <div class="container">
+        <div class="about-box">
+            <div class="about-box-text">
+                <h1>About Us!</h1>
+                <p>“Good shoes take you good places" – Seo Min Hyun </p>
+            </div>
+        </div>
+        <div class="about-para-box">
+            <div class="about-para-box-text">
+                <h2>At Migi Shoes, we believe that great shoes take you great places—whether you're chasing dreams, conquering city streets, or simply walking into your next adventure.</h2>
+                <h2>Founded with a passion for style, comfort, and innovation, Migi Shoes is your go-to destination for premium footwear that blends fashion with function.</h2>
+                <h2>From timeless classics to bold new trends, we curate a collection that speaks to every step of your journey.</h2>
+            </div>
+        </div>
+        <div class="mission-box">
+            <div class="mission">
+                <h2>Our Mission</h2>
+                <p>To empower every customer with shoes that elevate their lifestyle—through quality craftsmanship, seamless shopping, and standout service.</p>
+            </div>
+        </div>
+        <div class="different-box">
+            <div class="different">
+                <h2>What Makes Us Different</h2>
+                <p>We handpick every pair for style, durability, and comfort.
+                Our intuitive platform makes browsing, buying, and tracking effortless.
+                From easy returns to responsive support, we’re here for you every step of the way.</p>
+            </div >
+        </div>
+        <div class="vision-box">
+            <div class="vision">
+                <h2>Our Vision</h2>
+                <p>To become a global leader in footwear e-commerce by combining cutting-edge tech with timeless design—making Migi Shoes not just a store, but a movement.
+                Whether you're looking for sleek sneakers, rugged boots, or elegant heels, Migi Shoes is where your perfect pair begins.</p>
+            </div>
+        </div>
+        </div>
+    </div>
+{% endblock %}

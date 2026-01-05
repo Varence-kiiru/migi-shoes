@@ -1,0 +1,34 @@
+{% extends 'BaseTemplate/base.html' %}
+{% load static %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'customer/css/styles.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- https://bootstrapexamples.com/@shola-ajani/profile-management-dashboard-2 -->
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar / Top nav -->
+        <nav class="col-12 col-md-3 mb-3 mb-md-0 customer-dashboard-nav">
+            <div class="position-sticky" style="top:1rem;">
+                <ul class="nav nav-pills flex-row flex-md-column rounded p-2">
+                    <li class="nav-item"><a class="nav-link {% if active == 'profile' %}active{% endif %}" href="{% url 'customer:customer_profile' %}">Profile</a></li>
+                    <li class="nav-item"><a class="nav-link {% if active == 'payment_methods' %}active{% endif %}" href="{% url 'customer:customer_payment_methods' %}">Payment Methods</a></li>
+                    <li class="nav-item"><a class="nav-link {% if active == 'addresses' %}active{% endif %}" href="{% url 'customer:address_list' %}">Addresses</a></li>
+                    <li class="nav-item"><a class="nav-link {% if active == 'orders' %}active{% endif %}" href="{% url 'customer:customer_orders' %}">Orders</a></li>
+                    <li class="nav-item"><a class="nav-link {% if active == 'password' %}active{% endif %}" href="{% url 'customer:customer_password' %}">Change Password</a></li>
+                    <li class="nav-item"><a class="nav-link {% if active == 'notifications' %}active{% endif %}" href="{% url 'customer:customer_notifications' %}">Notifications</a></li>
+                    <li class="nav-item"><a class="nav-link {% if active == 'settings' %}active{% endif %}" href="{% url 'customer:customer_settings' %}">Settings</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Main dashboard content -->
+        <div class="col-12 col-md-9">
+            {% block dashboard_content %}{% endblock %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,85 @@
+{% extends "BaseTemplate/base.html" %}
+{% load static %}
+
+{% block extra_head %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="" crossorigin="anonymous">
+{% endblock %}
+
+{% block title %}My Wishlist - Migi Shoes{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h3 mb-0">My Wishlist</h1>
+  </div>
+
+<!-- https://www.w3schools.com/bootstrap5/bootstrap_cards.php -->
+  {% if wishlist_items %}
+  <div class="row g-4">
+    {% for item in wishlist_items %}
+      {% with item.shoe.images.all|first as main_image %}
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="card h-100 shadow-sm">
+          {% if main_image %}
+            <img src="{{ main_image.image.url }}" class="card-img-top img-fluid" alt="{{ item.shoe.name }}">
+          {% else %}
+            <img src="{% static 'images/image1.png' %}" class="card-img-top img-fluid" alt="{{ item.shoe.name }}">
+          {% endif %}
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title mb-1">
+              <a href="{{ item.shoe.get_absolute_url }}" class="stretched-link text-decoration-none">{{ item.shoe.name }}</a>
+            </h5>
+            <p class="text-muted mb-2">Price: <strong>${{ item.shoe.price }}</strong></p>
+            <p class="mb-3"><small class="text-muted">Added: {{ item.date_added }}</small></p>
+
+            <!-- https://getbootstrap.com/docs/4.0/components/buttons/ -->
+            <div class="mt-auto d-flex justify-content-between align-items-center">
+              <a href="{{ item.shoe.get_absolute_url }}" class="btn btn-sm btn-outline-primary">View</a>
+
+              {% if item.id %}
+              <form method="post" action="{% url 'products:wishlist_delete' item.id %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-sm btn-danger" title="Remove from wishlist">
+                  <i class="fas fa-trash me-1"></i> Remove
+                </button>
+              </form>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endwith %}
+    {% endfor %}
+  </div>
+<!-- https://getbootstrap.com/docs/4.0/components/pagination/ -->
+  <nav aria-label="Wishlist pagination" class="mt-4">
+    <ul class="pagination justify-content-center mb-0">
+      {% if page_obj.has_previous %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">Previous</a>
+        </li>
+      {% else %}
+        <li class="page-item disabled"><span class="page-link">Previous</span></li>
+      {% endif %}
+
+      <li class="page-item disabled">
+        <span class="page-link">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+      </li>
+
+      {% if page_obj.has_next %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">Next</a>
+        </li>
+      {% else %}
+        <li class="page-item disabled"><span class="page-link">Next</span></li>
+      {% endif %}
+    </ul>
+  </nav>
+<!-- https://www.w3schools.com/bootstrap5/bootstrap_alerts.php -->
+  {% else %}
+  <div class="alert alert-info" role="alert">
+    Your wishlist is empty.
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

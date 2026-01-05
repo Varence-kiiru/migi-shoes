@@ -1,0 +1,101 @@
+/*cart*/
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+}
+
+
+
+/* shopping cart */
+.shopping-cart {
+  justify-content: space-between;
+  flex:2;
+  background: white;
+  padding: 20px 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  width: 350px;
+}
+
+.shopping-cart h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #2c3e50;
+}
+
+
+.order-summary {
+
+  flex:1;
+  background: white;
+  padding: 20px 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  width: 350px;
+}
+.order-summary .total{
+  color: #e74c3c;
+}
+
+.order-summary .total{
+  border-top: 2px solid #2c3e50;
+  font-weight: bold;
+  font-size: 16px;
+  color: #2c3e50;
+}
+
+.order-summary .subtotal  {
+  color: #e74c3c;
+}
+
+.order-summary .subtotal {
+  border-top: 2px solid #2c3e50;
+  font-weight: bold;
+  font-size: 16px;
+  color: #2c3e50;
+}
+
+.order-summary .discount {
+  color: #e74c3c;
+}
+
+.order-summary .discount {
+  border-top: 2px solid #2c3e50;
+  font-weight: bold;
+  font-size: 16px;
+  color: #2c3e50;
+}
+
+/* Checkout button */
+.checkout-btn {
+  width: 100%;
+  margin-top: 20px;
+  background: #27ae60;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.checkout-btn:hover {
+  background: #2ecc71;
+}
+
+/* Delete bin button */
+.delete-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  color: #e74c3c;
+  margin-left: 10px;
+}
+
+.delete-btn:hover {
+  color: #c0392b;
+}

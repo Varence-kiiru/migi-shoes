@@ -1,0 +1,69 @@
+{% extends "BaseTemplate/base.html" %}
+{% load static %}
+
+{% block title %}{{ shoe.name }} Review page - Shoemax{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+  <h1 class="mb-4">{% if editing %}Edit{% else %}Write{% endif %} a Review for {{ shoe.name }}</h1>
+
+  {% if form.non_field_errors %}
+    <div class="nonfield-errors alert alert-danger" role="alert">
+      {{ form.non_field_errors }}
+    </div>
+  {% endif %}
+
+  <form method="post" novalidate>
+    {% csrf_token %}
+
+    <div class="mb-3">
+      <label for="{{ form.title.id_for_label }}" class="form-label">{{ form.title.label }}</label>
+      <!-- Error message -->
+      {% if form.title.errors %}
+        {{ form.title }}
+        <div id="titleError" class="invalid-feedback d-block">
+          {% for err in form.title.errors %}{{ err }}{% endfor %}
+        </div>
+      {% else %}
+        {{ form.title }}
+      {% endif %}
+    </div>
+
+    <div class="mb-3">
+      <label for="{{ form.comment.id_for_label }}" class="form-label">{{ form.comment.label }}</label>
+      {% if form.comment.errors %}
+        {{ form.comment }}
+        <div id="commentError" class="invalid-feedback d-block">
+          {% for err in form.comment.errors %}{{ err }}{% endfor %}
+        </div>
+      {% else %}
+        {{ form.comment }}
+      {% endif %}
+    </div>
+
+    <fieldset class="mb-3">
+      <legend class="col-form-label">{{ form.rating.label }}</legend>
+      <div>
+        {% for radio in form.rating %}
+          <div class="form-check form-check-inline">
+            {{ radio.tag }}
+            <label class="form-check-label" for="{{ radio.id_for_label }}">{{ radio.choice_label }}</label>
+          </div>
+        {% endfor %}
+      </div>
+      <!-- Error message  -->
+      {% if form.rating.errors %} 
+        <div id="ratingError" class="invalid-feedback d-block mt-2">
+          {% for err in form.rating.errors %}{{ err }}{% endfor %}
+        </div>
+      {% endif %}
+    </fieldset>
+
+  <button type="submit" class="btn btn-primary">{% if editing %}Save Changes{% else %}Submit Review{% endif %}</button>
+    <a href="{% url 'products:reviews' shoe.shoe_id %}" class="btn btn-secondary ms-2">Back</a>
+  </form>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,345 @@
+{% extends 'cart/top-bar.html' %}
+{% load static %}
+{% block title %}Checkout{% endblock %}
+
+{% block extra_head %}
+<!-- https://getbootstrap.com/docs/5.3/examples/checkout/ -->
+<style>
+  .checkout-item-img {
+    width: 64px;
+    height: 64px;
+    object-fit: cover;
+    border-radius: 6px;
+    display: inline-block;
+  }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const paymentTypeSelect = document.getElementById('{{ payment_form.payment_type.id_for_label }}');
+    const cardFields = document.getElementById('card-fields');
+    const mpesaFields = document.getElementById('mpesa-fields');
+
+    function togglePaymentFields() {
+        const selectedType = paymentTypeSelect.value;
+
+        if (selectedType === 'card') {
+            cardFields.style.display = 'flex';
+            mpesaFields.style.display = 'none';
+        } else if (selectedType === 'mpesa') {
+            cardFields.style.display = 'none';
+            mpesaFields.style.display = 'flex';
+        } else {
+            cardFields.style.display = 'none';
+            mpesaFields.style.display = 'none';
+        }
+    }
+
+    if (paymentTypeSelect) {
+        paymentTypeSelect.addEventListener('change', togglePaymentFields);
+        // Initial toggle
+        togglePaymentFields();
+    }
+});
+</script>
+
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid" style="margin-top: 72px;"> <!-- ensure not hidden behind fixed top bar -->
+  <div class="row gx-4">
+    <div class="col-12 col-md-7">
+      <h1 class="mb-4">Checkout</h1>
+
+      <form method="POST" class="row gy-4" novalidate> <!-- no client-side validate in order to allow empty forms to be sent when existing data is selected -->
+        {% csrf_token %}
+
+        <!-- Contact -->
+        <div class="col-12">
+          <div class="card shadow-sm">
+            <div class="card-header">
+              <h5 class="mb-0">Contact</h5>
+            </div>
+            <div class="card-body">
+              {% if contact_form.non_field_errors %}
+                <div class="invalid-feedback d-block">{{ contact_form.non_field_errors }}</div>
+              {% endif %}
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label for="{{ contact_form.full_name.id_for_label }}" class="form-label">{{ contact_form.full_name.label }}</label>
+                  <div class="input-group">
+                    {{ contact_form.full_name }}
+                  </div>
+                  {% if contact_form.full_name.errors %}
+                    <div class="invalid-feedback d-block">{{ contact_form.full_name.errors|join:", " }}</div>
+                  {% endif %}
+                </div>
+                <div class="col-md-6">
+                  <label for="{{ contact_form.email.id_for_label }}" class="form-label">{{ contact_form.email.label }}</label>
+                  <div class="input-group">
+                    {{ contact_form.email }}
+                  </div>
+                  {% if contact_form.email.errors %}
+                    <div class="invalid-feedback d-block">{{ contact_form.email.errors|join:", " }}</div>
+                  {% endif %}
+                </div>
+                <div class="col-md-6">
+                  <label for="{{ contact_form.phone.id_for_label }}" class="form-label">{{ contact_form.phone.label }}</label>
+                  <div class="input-group">
+                    {{ contact_form.phone }}
+                  </div>
+                  {% if contact_form.phone.errors %}
+                    <div class="invalid-feedback d-block">{{ contact_form.phone.errors|join:", " }}</div>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Shipping -->
+        <div class="col-12">
+          <div class="card shadow-sm">
+            <div class="card-header d-flex align-items-center justify-content-between">
+              <h5 class="mb-0">Shipping address</h5>
+              <span class="badge text-bg-secondary">Required</span>
+            </div>
+            <div class="card-body">
+              <div class="mb-3">
+                <label class="form-label">Pick an option</label>
+                <select name="shipping_existing" class="form-select">
+                  <option value="new" {% if shipping_selected == 'new' %}selected{% endif %}>Enter new shipping address</option>
+                  {% for addr in addresses %}
+                    <option value="{{ addr.addr_id }}" {% if shipping_selected == addr.addr_id|stringformat:"s" %}selected{% endif %}>{{ addr.first_name }} {{ addr.last_name }} — {{ addr.street }}, {{ addr.city }} {{ addr.zip_code }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              {% if shipping_form.non_field_errors %}
+                <div class="invalid-feedback d-block">{{ shipping_form.non_field_errors }}</div>
+              {% endif %}
+              <div class="row g-3">
+            <div class="col-md-6">
+              {{ shipping_form.first_name }}
+              {% if shipping_form.first_name.errors %}
+                <div class="invalid-feedback d-block">{{ shipping_form.first_name.errors|join:", " }}</div>
+              {% endif %}
+            </div>
+            <div class="col-md-6">
+              {{ shipping_form.last_name }}
+              {% if shipping_form.last_name.errors %}
+                <div class="invalid-feedback d-block">{{ shipping_form.last_name.errors|join:", " }}</div>
+              {% endif %}
+            </div>
+            <div class="col-12">
+              {{ shipping_form.street }}
+              {% if shipping_form.street.errors %}
+                <div class="invalid-feedback d-block">{{ shipping_form.street.errors|join:", " }}</div>
+              {% endif %}
+            </div>
+            <div class="col-md-6">
+              {{ shipping_form.city }}
+              {% if shipping_form.city.errors %}
+                <div class="invalid-feedback d-block">{{ shipping_form.city.errors|join:", " }}</div>
+              {% endif %}
+            </div>
+            <div class="col-md-6">
+              {{ shipping_form.zip_code }}
+              {% if shipping_form.zip_code.errors %}
+                <div class="invalid-feedback d-block">{{ shipping_form.zip_code.errors|join:", " }}</div>
+              {% endif %}
+            </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Billing -->
+        <div class="col-12">
+          <div class="card shadow-sm">
+            <div class="card-header">
+              <h5 class="mb-0">Billing address</h5>
+            </div>
+            <div class="card-body">
+              <div class="mb-3">
+                <label class="form-label">Pick an option</label>
+                <select name="billing_existing" class="form-select">
+                  <option value="same" {% if billing_selected == 'same' %}selected{% endif %}>Use shipping address</option>
+                  <option value="new" {% if billing_selected == 'new' %}selected{% endif %}>Enter new billing address</option>
+                  {% for addr in addresses %}
+                    <option value="{{ addr.addr_id }}" {% if billing_selected == addr.addr_id|stringformat:"s" %}selected{% endif %}>{{ addr.first_name }} {{ addr.last_name }} — {{ addr.street }}, {{ addr.city }} {{ addr.zip_code }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              {% if billing_form.non_field_errors %}
+                <div class="invalid-feedback d-block">{{ billing_form.non_field_errors }}</div>
+              {% endif %}
+              <div class="row g-3">
+            <div class="col-md-6">
+              {{ billing_form.first_name }}
+              {% if billing_form.first_name.errors %}
+                <div class="invalid-feedback d-block">{{ billing_form.first_name.errors|join:", " }}</div>
+              {% endif %}
+            </div>
+            <div class="col-md-6">
+              {{ billing_form.last_name }}
+              {% if billing_form.last_name.errors %}
+                <div class="invalid-feedback d-block">{{ billing_form.last_name.errors|join:", " }}</div>
+              {% endif %}
+            </div>
+            <div class="col-12">
+              {{ billing_form.street }}
+              {% if billing_form.street.errors %}
+                <div class="invalid-feedback d-block">{{ billing_form.street.errors|join:", " }}</div>
+              {% endif %}
+            </div>
+            <div class="col-md-6">
+              {{ billing_form.city }}
+              {% if billing_form.city.errors %}
+                <div class="invalid-feedback d-block">{{ billing_form.city.errors|join:", " }}</div>
+              {% endif %}
+            </div>
+            <div class="col-md-6">
+              {{ billing_form.zip_code }}
+              {% if billing_form.zip_code.errors %}
+                <div class="invalid-feedback d-block">{{ billing_form.zip_code.errors|join:", " }}</div>
+              {% endif %}
+            </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Payment -->
+        <div class="col-12">
+          <div class="card shadow-sm">
+            <div class="card-header">
+              <h5 class="mb-0">Payment</h5>
+            </div>
+            <div class="card-body">
+              <div class="mb-3">
+                <label class="form-label">Pick an option</label>
+                <select name="payment_existing" class="form-select">
+                  <option value="new" {% if payment_selected == 'new' %}selected{% endif %}>Enter new card / payment</option>
+                  <option value="cod" {% if payment_selected == 'cod' %}selected{% endif %}>Cash on Delivery</option>
+                  {% for pm in payment_methods %}
+                    <option value="{{ pm.card_id }}" {% if payment_selected == pm.card_id|stringformat:"s" %}selected{% endif %}>{{ pm.masked}} — {{ pm.holder_name }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              {% if payment_form.non_field_errors %}
+                <div class="invalid-feedback d-block">{{ payment_form.non_field_errors }}</div>
+              {% endif %}
+              <div class="row g-3">
+            <div class="col-12">
+              {{ payment_form.payment_type }}
+              {% if payment_form.payment_type.errors %}
+                <div class="invalid-feedback d-block">{{ payment_form.payment_type.errors|join:", " }}</div>
+              {% endif %}
+            </div>
+              </div>
+
+              <!-- Card fields -->
+              <div id="card-fields" class="row g-3" style="display: none;">
+                <div class="col-md-6">
+                  {{ payment_form.card_num }}
+                  {% if payment_form.card_num.errors %}
+                    <div class="invalid-feedback d-block">{{ payment_form.card_num.errors|join:", " }}</div>
+                  {% endif %}
+                </div>
+                <div class="col-md-4">
+                  {{ payment_form.exp_date }}
+                  {% if payment_form.exp_date.errors %}
+                    <div class="invalid-feedback d-block">{{ payment_form.exp_date.errors|join:", " }}</div>
+                  {% endif %}
+                </div>
+                <div class="col-md-2">
+                  {{ payment_form.cvv }}
+                  {% if payment_form.cvv.errors %}
+                    <div class="invalid-feedback d-block">{{ payment_form.cvv.errors|join:", " }}</div>
+                  {% endif %}
+                </div>
+                <div class="col-md-6">
+                  {{ payment_form.holder_name }}
+                  {% if payment_form.holder_name.errors %}
+                    <div class="invalid-feedback d-block">{{ payment_form.holder_name.errors|join:", " }}</div>
+                  {% endif %}
+                </div>
+                <div class="col-md-6">
+                  {{ payment_form.card_type }}
+                  {% if payment_form.card_type.errors %}
+                    <div class="invalid-feedback d-block">{{ payment_form.card_type.errors|join:", " }}</div>
+                  {% endif %}
+                </div>
+              </div>
+
+              <!-- M-Pesa fields -->
+              <div id="mpesa-fields" class="row g-3" style="display: none;">
+                <div class="col-md-6">
+                  {{ payment_form.mpesa_phone }}
+                  {% if payment_form.mpesa_phone.errors %}
+                    <div class="invalid-feedback d-block">{{ payment_form.mpesa_phone.errors|join:", " }}</div>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12">
+          <div class="d-grid">
+            <button type="submit" name="place_order" class="btn btn-primary btn-lg">Place Order</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="col-12 col-md-5">
+      <div class="card shadow-sm ">
+        <div class="card-body">
+          <h5 class="card-title mb-3">Order Summary</h5>
+
+          <ul class="list-group list-group-flush mb-3">
+            {% for item in cart_items %}
+            <li class="list-group-item d-flex align-items-start">
+              <div class="me-3">
+                {% with main_image=item.variant.shoe.images.first %}
+                  {% if main_image %}
+                    <img src="{{ main_image.image.url }}" alt="{{ item.variant.shoe.name }}" class="checkout-item-img">
+                  {% else %}
+                    <img src="{% static 'images/image-placeholder.png' %}" alt="No image" class="checkout-item-img">
+                  {% endif %}
+                {% endwith %}
+              </div>
+
+              <div class="flex-grow-1">
+                <div class="fw-semibold">{{ item.variant.shoe.name }}</div>
+                <small class="text-muted">Color: {{ item.variant.color }} - Size: {{ item.variant.size_system }} {{ item.variant.size }} - Quantity: {{ item.quantity }}</small>
+              </div>
+
+              <div class="text-end ms-2">
+                <span>KSh {{ item.total_price }}</span>
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+
+          <ul class="list-group list-group-flush mb-3">
+            <li class="list-group-item d-flex justify-content-between">
+              <span>Subtotal</span>
+              <strong>KSh {{ total }}</strong>
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+              <span>Shipping Fee</span>
+              <strong>KSh {{ shipping_fee }}</strong>
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+              <span>Total</span>
+              <strong>KSh {{ final_total }}</strong>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,47 @@
+body{
+    background: 
+        linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+        url('../images/image4.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: 20% left;
+    background-size: cover;
+}
+h1{
+    margin-left: 8rem; 
+    color: #ffffff;
+    text-shadow: 2px 2px 5px rgb(0, 0, 0);
+    text-shadow: -2px -2px 5px rgb(0, 0, 0);
+    font-family: 'Segoe UI', 'Helvetica Neue', 'Arial', sans-serif;
+}
+h2{
+    font-family: Arial, Helvetica, sans-serif;
+    color: #ffffff;
+}
+.container{
+    margin-left: 4rem;
+}
+.rating-stars input[type="radio"]{
+    transform: scale(1.5); 
+    margin-right: 0.5rem;
+}
+.rating-stars label{
+    font-size: 2rem;
+    margin-right: 1rem;
+    cursor: pointer;
+    color: gold;
+}
+.cta-button{
+    background-color: #ffffff;
+    color: black;
+    padding: 7px 12px;
+    font-family:Arial, Helvetica, sans-serif;
+    font-weight:bolder;
+    border-radius: 6px;
+    box-shadow: 2px 2px 10px #000000;
+    transition: transform 0.3s ease-in, background-color 0.3s ease-in;
+}
+.cta-button:hover{
+    background-color: #7c7c7c;
+    transform: scale(1.1);
+}

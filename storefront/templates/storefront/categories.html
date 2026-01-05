@@ -1,0 +1,61 @@
+{% extends 'BaseTemplate/base.html' %}
+{% load static %}
+
+{% block title %}Categories - Migi Shoes{% endblock %}
+
+{% block content %}
+<!-- Breadcrumb -->
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'storefront:home' %}">Home</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Categories</li>
+  </ol>
+</nav>
+
+<!-- Banner -->
+<div class="jumbotron p-4 mb-4 bg-light rounded-3">
+  <div class="container-fluid py-2">
+    <h1 class="display-6">Shop by Category</h1>
+    <p class="lead">Find shoes for every occasion — running, casual, formal, sandals, boots and more. Browse featured items below or click "View all" for a full list.</p>
+  </div>
+</div>
+
+<!-- Categories list -->
+{% for cat in categories_list %}
+  <div class="mb-5">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h3 class="mb-0">{{ cat.label }}</h3>
+      <a class="btn btn-outline-primary" href="{% url 'products:search' %}?category={{ cat.code }}">View all</a>
+    </div>
+
+    {% if cat.shoes %}
+      <div class="row">
+        {% for shoe in cat.shoes %}
+          <div class="col-6 col-md-3 mb-3">
+            <div class="card h-100">
+              {% if shoe.images.first %}
+                <img src="{{ shoe.images.first.image.url }}" class="card-img-top" alt="{{ shoe.images.first.alt_text }}">
+              {% else %}
+                <img src="{% static 'images/no-image.png' %}" class="card-img-top" alt="No image">
+              {% endif %}
+              <div class="card-body p-2">
+                <h5 class="card-title small mb-1">{{ shoe.name }}</h5>
+                {% if shoe.brand %}
+                  <p class="card-text small text-muted">{{ shoe.brand.name }}</p>
+                {% else %}
+                  <p class="card-text small text-muted">Generic Brand</p>
+                {% endif %}
+                <p class="card-text fw-bold">${{ shoe.price }}</p>
+                <a href="{{ shoe.get_absolute_url }}" class="stretched-link"></a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="text-muted">No items in this category yet.</p>
+    {% endif %}
+  </div>
+{% endfor %}
+
+{% endblock %}

@@ -1,0 +1,118 @@
+{% extends "BaseTemplate/base.html" %}
+{% load static %}
+{% block title %}{{ company.company_name }} - Homepage{% endblock title%}
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/storefront/home.css' %}">
+<!--import font-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Story+Script&display=swap" rel="stylesheet">
+<script
+      src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.8.5/dist/dotlottie-wc.js"
+      type="module"
+></script>
+{% endblock %}
+{% block content %}
+<!--main banner-->
+<section class="hero">
+    <div class="hero-content">
+        <h1>Step Into Style</h1>
+        <p>
+        Discover shoes that move you - crafted for comfort,
+        built for every moment.
+        </p>
+        <a href="{% url 'products:search' %}" class="cta-button">Shop now</a>
+    </div>
+</section>
+<!--2 banners downwards-->
+<section class="banner">
+    <div class="left">
+        <img src="/static/images/storefront/bannerr1.jpg" alt="Shoe1" class="left-image" >
+        <div class="innerleft">
+            <h1>Unleash the athlete</h1>
+            <p>Lightweight speed, bold style-<br> the
+                ultimate men's sport shoes
+            </p>
+        <a href="{% url 'products:search' %}?category=trainers" class="cta-button">Shop</a>
+        </div>
+    </div>
+    <div class="right">
+        <img src="/static/images/storefront/bannnerr2.jpg" alt="Shoe2" class="right-image">
+        <div class="innerright">
+            <h2>Elegance for Ladies,<br> 
+                 One Step at a Time </h2>
+            <a href="{% url 'products:search' %}?category=dress-shoes" class="cta-button" >Shop</a>
+        </div>
+    </div>
+</section>
+<br><br>
+<div id="animationDiv">
+    <!-- Lottie Animation -->
+    <dotlottie-wc
+      src="https://lottie.host/18edacbc-4314-49ee-83d9-79b6f11245cd/gus85cpFil.lottie"
+      id="animation"
+      autoplay
+      loop
+    ></dotlottie-wc>
+    <h2><span id="animationTitle">{{ company.company_name }}</span> - YOUR STEP TOWARDS PERFECTION</h2>
+</div>
+<br><br>
+<!--Shop men/women/kid-->
+<section class="genderclass">
+    <div class="innergender">
+        <img src="/static/images/storefront/gender1.jpg">
+    <a href="{% url 'products:by_gender' 'M' %}" class="cta-button" >Shop Men</a>
+    </div>
+    <div class="innergender">
+        <img src="/static/images/storefront/gender2.jpg">
+    <a href="{% url 'products:by_gender' 'W' %}" class="cta-button" >Shop Women</a>
+    </div>
+    <div class="innergender">
+        <img src="/static/images/storefront/gender3.jpg">
+    <a href="{% url 'products:by_gender' 'K' %}" class="cta-button" >Shop kid</a>
+    </div>
+</section>
+<!--Shop by category-->
+<div class="subtitle">Categories</div><br>
+<section class="category">
+    <div class="category-box">
+    <a href="{% url 'products:search' %}?category=trainers" class="stretched-link" aria-label="Go page x"></a>
+        <img src="/static/images/storefront/cat1.jpg">
+        <h1>Trainers</h1>
+        <p>Lightweight, comfortable shoes designed for everyday wear, workouts, or just keeping it effortlessly casual</p>
+    </div>
+    <div class="category-box">
+    <a href="{% url 'products:search' %}?category=formals" class="stretched-link" aria-label="Go page x"></a>
+        <img src="/static/images/storefront/cat2.jpg">
+        <h1>Formal Shoes</h1>
+        <p>Polished, stylish footwear ideal for office, weddings, or special occasions — where looking sharp matters most</p>
+    </div>
+    <div class="category-box">
+    <a href="{% url 'products:search' %}?category=crocs" class="stretched-link" aria-label="Go page x"></a>
+        <img src="/static/images/storefront/cat3.jpg">
+        <h1>Crocs</h1>
+        <p>Easy-slip comfort with a laid-back vibe. Lightweight, water-friendly, and perfect for indoor or outdoor chill.</p>
+    </div>
+</section>
+<br><br>
+<section class="category">
+    <div class="category-box">
+    <a href="{% url 'products:search' %}?category=dress-shoes" class="stretched-link" aria-label="Go page x"></a>
+        <img src="/static/images/storefront/cat4new.png">
+        <h1>Dress Shoes</h1>
+        <p>Elegant and refined styles for every occasion — from classic heels to chic pumps and sophisticated silhouettes.</p>
+    </div>
+    <div class="category-box">
+    <a href="{% url 'products:search' %}?category=sandals" class="stretched-link" aria-label="Go page x"></a>
+        <img src="/static/images/storefront/cat5new.jpg">
+        <h1>Sandals</h1>
+        <p>Open-toe styles built for sunshine. Breezy, stylish, and ideal for warm days or casual getaways.</p>
+    </div>
+    <div class="category-box">
+    <a href="{% url 'products:search' %}?category=boots" class="stretched-link" aria-label="Go page x"></a>
+        <img src="/static/images/storefront/cat6.jpg">
+        <h1>Boots</h1>
+        <p>Durable and versatile, from rugged outdoor pairs to sleek fashion staples. Ready for any season or setting.</p>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "products/search.html" %}
+{% load static %}
+
+{% block title %}{{ selected_brand_obj.name }} Shoes - Migi Shoes{% endblock %}
+
+{% block breadcrumb %}
+    <nav aria-label="breadcrumb" class="mb-3">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'storefront:home' %}">Home</a></li>
+            {% for item in breadcrumb %}
+                {% if item.url %}
+                    <li class="breadcrumb-item"><a href="{{ item.url }}">{{ item.title }}</a></li>
+                {% else %}
+                    <li class="breadcrumb-item active" aria-current="page">{{ item.title }}</li>
+                {% endif %}
+            {% endfor %}
+        </ol>
+    </nav>
+{% endblock %}
+
+{% block page_banner %}
+    <div class="row mb-0">
+        <div class="col-12">
+            {% if selected_brand_obj.logo %}
+                <img src="{{ selected_brand_obj.logo.url }}" class="img-fluid w-100 mb-3 rounded" alt="{{ selected_brand_obj.name }}">
+            {% else %}
+                <div class="{% if theme|default:'light' == 'dark' %}bg-dark text-white{% else %}bg-light text-dark{% endif %} p-5 text-center rounded mb-3">
+                    <div style="font-size:72px; font-weight:700;">{{ selected_brand_obj.name|slice:":1"|upper }}</div>
+                </div>
+            {% endif %}
+
+            <div class="{% if theme|default:'light' == 'dark' %}bg-dark text-white{% else %}bg-light text-dark{% endif %} p-4 rounded mb-4">
+                <h1 class="h3 mb-2">{{ selected_brand_obj.name }} Shoes</h1>
+                <p class="mb-0">Discover our selection of {{ selected_brand_obj.name }} shoes. Use the filters to refine by size, price and category.</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

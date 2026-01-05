@@ -1,0 +1,109 @@
+/* Site-wide theme variables for light and dark modes. */
+/* https://getbootstrap.com/docs/5.3/customize/color-modes/ */
+:root, [data-bs-theme="light"] {
+  --bg: #ffffff;
+  --text: #111827;
+  --muted: #6c757d;
+  --navbar-bg: #f8f9fa;
+  --navbar-text: #111827;
+  --card-bg: #f8f9fa;
+  --link: #0d6efd;
+}
+
+[data-bs-theme="dark"] {
+  --bg: #0b0c0e;
+  --text: #e6edf3;
+  --muted: #98a0aa;
+  --navbar-bg: #111827;
+  --navbar-text: #f8f9fa;
+  --card-bg: #111317;
+  --link: #7fb1ff;
+}
+
+html, body {
+  background: var(--bg) !important;
+  color: var(--text) !important;
+}
+
+/* Navbar and offcanvas / sidebar */
+.navbar, .offcanvas, .offcanvas-header, .offcanvas-body, .list-group-item {
+  background-color: var(--navbar-bg) !important;
+  color: var(--navbar-text) !important;
+}
+
+.list-group-item a, .list-group-item { color: var(--navbar-text) !important; }
+
+.site-footer { background: var(--navbar-bg); color: var(--navbar-text); }
+
+a { color: var(--link); }
+
+.text-muted { color: var(--muted) !important; }
+
+/* Footer styles */
+.site-footer h5, .site-footer h6 {
+  color: var(--navbar-text);
+  margin-bottom: 1rem;
+}
+
+.site-footer .footer-links a, .site-footer .footer-contact a, .site-footer .footer-legal a {
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.site-footer .footer-links a:hover, .site-footer .footer-contact a:hover, .site-footer .footer-legal a:hover {
+  color: var(--link);
+}
+
+.site-footer .footer-contact p {
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.site-footer .footer-contact i {
+  margin-right: 0.5rem;
+  width: 16px;
+}
+
+.site-footer .social-links a {
+  font-size: 1.2rem;
+  transition: color 0.2s ease;
+}
+
+.site-footer .social-links a:hover {
+  color: var(--link) !important;
+}
+
+/* Card responsiveness */
+@media (max-width: 576px) {
+  .card .card-title {
+    font-size: 1rem;
+  }
+  .card .card-text {
+    font-size: 0.875rem;
+  }
+  .card .btn {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+  }
+  .card-img-top {
+    height: 150px !important;
+  }
+}
+
+@media (min-width: 577px) and (max-width: 768px) {
+  .card-img-top {
+    height: 180px !important;
+  }
+}
+
+/* Toasts */
+.toast { background: var(--card-bg); color: var(--text); }
+
+.btn-outline-light { color: var(--navbar-text); border-color: rgba(255,255,255,0.2); }
+
+.card, .nav {  
+  background-color: var(--card-bg) !important;
+  color: var(--text) !important;
+}

@@ -1,0 +1,116 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="{{ theme }}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
+  <title>{% block title %}Migi Shoes{% endblock %}</title>
+    <!-- A custom top bar for checkout based on the navbar of main website -->
+  <style>
+    .checkout-topbar {
+      position: fixed;
+      top: 0;
+      left: 0;              /* ensure no left gap */
+      width: 100%;          /* full viewport width */
+      z-index: 1100;
+      box-sizing: border-box;
+      height: 56px;
+      background: #000;
+      color: #fff;
+
+      display: grid;
+      grid-template-columns: 1fr auto 1fr; /* left / center / right */
+      align-items: center;
+
+      padding: 0;
+      margin: 0;
+    }
+
+    /* Reset page spacing so top bar touches all edges */
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+
+    /* give small inner spacing so icons/text don't touch the viewport edges */
+    .checkout-topbar .left { justify-self: start; gap: 8px; padding-left: 12px; display:flex; align-items:center; }
+    .checkout-topbar .center { justify-self: center; display:flex; align-items:center; }
+    .checkout-topbar .right { justify-self: end; gap: 8px; padding-right: 12px; display:flex; align-items:center; }
+
+    .secure-text {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .brand, .shop-name {
+      font-family: Georgia, "Times New Roman", Times, serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: 0.5px;
+    }
+
+    .checkout-topbar i {
+      font-size: 22px;
+      color: #fff;
+      text-shadow: 0 1px 0 rgba(0,0,0,0.6);
+      transition: color 0.2s ease, transform 0.15s ease;
+    }
+    .checkout-topbar a { color: inherit; text-decoration: none; }
+
+    .cart-link { position: relative; display: inline-flex; align-items: center; gap: 6px; }
+    .cart-dot {
+      position: absolute;
+      top: 0;
+      right: -6px;
+      background-color: #9ACD32;
+      border-radius: 50%;
+      width: 8px;
+      height: 8px;
+    }
+
+    .checkout-topbar i:hover,
+    .checkout-topbar .brand:hover {
+      color: #ccc;
+      transform: scale(1.15);
+    }
+
+    @media (max-width: 600px) {
+      .secure-text { display: none; }
+      .brand { font-size: 1.1rem; }
+    }
+  </style>
+
+  <link rel="stylesheet" href="{% static 'BaseTemplate/css/theme.css' %}">
+  {% if company.favicon %}
+    <link rel="icon" href="{{ company.favicon.url }}" type="image/x-icon">
+  {% endif %}
+  {% block extra_head %}{% endblock %}
+</head>
+<body>
+  <nav class="checkout-topbar" role="navigation" aria-label="Checkout top bar">
+    <div class="left">
+      <i class="fas fa-lock" aria-hidden="true"></i>
+      <span class="secure-text">Secure Checkout</span>
+    </div>
+
+    <div class="center">
+      <a href="{% url 'storefront:home' %}" class="brand">Migi Shoes</a>
+    </div>
+
+    <div class="right">
+      <a href="{% url 'cart:summary' %}" class="cart-link" aria-label="Go to cart">
+        <i class="fas fa-shopping-cart" aria-hidden="true"></i>
+        <span class="cart-dot" aria-hidden="true"></span>
+      </a>
+    </div>
+  </nav>
+  {% block content %}{% endblock %}
+</body>
+</html>

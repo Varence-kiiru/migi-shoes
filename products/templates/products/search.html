@@ -1,0 +1,129 @@
+{% extends "BaseTemplate/base.html" %}
+{% load static %}
+
+{% block title %}Search Shoes - Migi Shoes{% endblock %}
+
+{% block extra_head %}
+	<meta name="description" content="Search for shoes by name, category, and price range.">
+{% endblock %}
+
+<!-- https://bootstrapexamples.com/@razor0/product-list -->
+{% block content %}
+<!-- https://getbootstrap.com/docs/4.0/components/breadcrumb/ -->
+	{% block breadcrumb %}
+		<nav class="mb-3">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a href="{% url 'storefront:home' %}">Home</a></li>
+				<li class="breadcrumb-item active">Search</li>
+			</ol>
+		</nav>
+	{% endblock breadcrumb %}
+
+	{% block page_banner %}
+	{% endblock page_banner %}
+
+	<h1 class="mb-4">Find Your Perfect Pair</h1>
+	<!-- https://getbootstrap.com/docs/4.0/components/forms/ -->
+	<form method="get" class="row g-3 mb-4">
+		<input type="hidden" name="q" value="{{ q }}" />
+
+		<div class="col-md-2">
+			<label for="category" class="form-label">Category</label>
+			<select name="category" id="category" class="form-select">
+				<option value="">All categories</option>
+				{% for code,label in categories.items %}
+					<option value="{{ code }}" {% if code == selected_category %}selected{% endif %}>{{ label }}</option>
+				{% endfor %}
+			</select>
+		</div>
+
+		<div class="col-md-2">
+			<label for="brand" class="form-label">Brand</label>
+			<select name="brand" id="brand" class="form-select" {% if rendered == 'shoe_by_brand' %}disabled{% endif %}>
+				<option value="">All brands</option>
+				{% for b in brands %}
+					<option value="{{ b.brand_id }}" {% if b.brand_id|stringformat:'s' == selected_brand %}selected{% endif %}>{{ b.name }}</option>
+				{% endfor %}
+			</select>
+		</div>
+
+		<div class="col-md-2">
+			<label for="gender" class="form-label">Gender</label>
+			<select name="gender" id="gender" class="form-select" {% if rendered == 'shoe_by_gender' %}disabled{% endif %}>
+				<option value="">Any</option>
+				{% for code,label in genders.items %}
+					<option value="{{ code }}" {% if code == selected_gender %}selected{% endif %}>{{ label }}</option>
+				{% endfor %}
+			</select>
+		</div>
+
+		<div class="col-md-3">
+			<label class="form-label">Price</label>
+			<div class="input-group">
+				<input type="number" name="min_price" step="0.01" min="0" value="{{ min_price }}" class="form-control" placeholder="Min" />
+				<span class="input-group-text">—</span>
+				<input type="number" name="max_price" step="0.01" min="0" value="{{ max_price }}" class="form-control" placeholder="Max" />
+			</div>
+		</div>
+
+		<div class="col-md-3 d-flex align-items-end">
+			<div class="d-flex gap-2 flex-column flex-sm-row w-100">
+				<button type="submit" class="btn btn-primary flex-fill">Filter</button>
+				<a href="?" class="btn btn-outline-secondary flex-fill">Reset</a>
+			</div>
+		</div>
+	</form>
+
+	<div class="mb-3 text-muted">
+		{% if shoes %}
+			<strong>{{ shoes|length }}</strong> result{{ shoes|length|pluralize }} found
+		{% else %}
+			No results found
+		{% endif %}
+	</div>
+    
+	{% if is_paginated %}
+	<nav  class="mt-4">
+		<ul class="pagination justify-content-center">
+		<!-- https://docs.djangoproject.com/en/5.2/topics/pagination/#paginating-a-listview -->
+			<li class="page-item {% if not page_obj.has_previous %}disabled{% endif %}">
+				{% if page_obj.has_previous %}
+					<a class="page-link" href="?{% for key,value in request.GET.items %}{% if key != 'page' %}{{ key }}={{ value|urlencode }}&{% endif %}{% endfor %}page={{ page_obj.previous_page_number }}" aria-label="Previous">&laquo; Previous</a>
+				{% else %}
+					<span class="page-link">Previous</span>
+				{% endif %}
+			</li>
+
+			{% for num in paginator.page_range %}
+				<li class="page-item {% if num == page_obj.number %}active{% endif %}">
+					{% if num == page_obj.number %}
+						<span class="page-link">{{ num }}</span>
+					{% else %}
+						<a class="page-link" href="?{% for key,value in request.GET.items %}{% if key != 'page' %}{{ key }}={{ value|urlencode }}&{% endif %}{% endfor %}page={{ num }}">{{ num }}</a>
+					{% endif %}
+				</li>
+			{% endfor %}
+
+			<li class="page-item {% if not page_obj.has_next %}disabled{% endif %}">
+				{% if page_obj.has_next %}
+					<a class="page-link" href="?{% for key,value in request.GET.items %}{% if key != 'page' %}{{ key }}={{ value|urlencode }}&{% endif %}{% endfor %}page={{ page_obj.next_page_number }}" aria-label="Next">Next &raquo;</a>
+				{% else %}
+					<span class="page-link">Next</span>
+				{% endif %}
+			</li>
+		</ul>
+	</nav>
+	{% endif %}
+
+	<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
+		{% for shoe in shoes %}
+			<div class="col mb-4">
+				{% include 'products/includes/shoe_card.html' with shoe=shoe %}
+			</div>
+		{% empty %}
+			<div class="col">
+				<div class="alert alert-secondary">Try adjusting your filters.</div>
+			</div>
+		{% endfor %}
+	</div>
+{% endblock %}

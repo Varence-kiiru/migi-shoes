@@ -1,0 +1,181 @@
+{% extends "BaseTemplate/base.html" %}
+{% load static %}
+
+{% block title %}{{ shoe.name }} - Migi Shoes{% endblock %}
+
+{% block extra_head %}
+  <meta name="author" content="Migi Shoes Ltd." />
+  <meta name="keywords" content="" />
+  <meta name="description" content="Product details page for {{ shoe.name }}" />
+{% endblock %}
+
+<!-- https://bootstrapexamples.com/@andreas-muller/product-details-page -->
+
+{% block extra_nav %}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <nav aria-label="breadcrumb mb-3">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'storefront:home' %}">Home</a></li>
+      <li class="breadcrumb-item">
+        <a href="{% url 'products:by_gender' shoe.gender %}">{{ shoe.get_gender_display }}</a>
+      </li>
+      <li class="breadcrumb-item">
+        <a href="{% url 'products:by_gender' shoe.gender %}?category={{ shoe.category }}">{{ shoe.get_category_display }}</a>
+      </li>
+      <li class="breadcrumb-item active">{{shoe.name}}</li>
+    </ol>
+  </nav>
+</div>
+
+<div class="container my-4">
+  <!-- <main class="product-container"> -->
+    <div class="row gx-4">
+      <div class="col-lg-6">
+        <div class="card">
+          <div class="card-body">
+            <!-- Bootstrap carousel -->
+             <!-- https://getbootstrap.com/docs/4.0/components/carousel/ -->
+            <div class="mb-3 text-center">
+              {% if shoe.images.all %}
+                <div id="shoeCarousel{{ shoe.shoe_id }}" class="carousel slide" data-bs-ride="carousel">
+                  <div class="carousel-indicators">
+                    {% for img in shoe.images.all %}
+                      <button type="button" data-bs-target="#shoeCarousel{{ shoe.shoe_id }}" data-bs-slide-to="{{ forloop.counter0 }}" class="{% if forloop.first %}active{% endif %}" aria-current="{% if forloop.first %}true{% else %}false{% endif %}" aria-label="Slide {{ forloop.counter }}"></button>
+                    {% endfor %}
+                  </div>
+
+                  <div class="carousel-inner">
+                    {% for img in shoe.images.all %}
+                      <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                        <img src="{{ img.image.url }}" class="d-block w-100 rounded" style="max-height:520px;object-fit:contain;" alt="{{ img.alt_text|default:shoe.name }}">
+                      </div>
+                    {% endfor %}
+                  </div>
+
+                  <button class="carousel-control-prev" type="button" data-bs-target="#shoeCarousel{{ shoe.shoe_id }}" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                  </button>
+                  <button class="carousel-control-next" type="button" data-bs-target="#shoeCarousel{{ shoe.shoe_id }}" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                  </button>
+                </div>
+              {% else %}
+                <img src="{% static 'images/image1.png' %}" alt="{{ shoe.name }}" class="img-fluid rounded">
+              {% endif %}
+            </div>
+
+            <!-- Thumbnails below carousel implemented as buttons -->
+            <div class="d-flex flex-wrap gap-2 justify-content-center mt-2">
+              {% if shoe.images.all %}
+                {% for img in shoe.images.all %}
+                  <button type="button" class="btn p-0" data-bs-target="#shoeCarousel{{ shoe.shoe_id }}" data-bs-slide-to="{{ forloop.counter0 }}" aria-label="View slide {{ forloop.counter }}">
+                    <img src="{{ img.image.url }}" alt="{{ img.alt_text|default:shoe.name }}" class="img-thumbnail" style="width:96px;height:96px;object-fit:cover;">
+                  </button>
+                {% endfor %}
+              {% else %}
+                <img src="{% static 'images/image1.png' %}" alt="Product view 1" class="img-thumbnail" style="width:96px;height:96px;object-fit:cover;">
+                <img src="{% static 'images/image2.png' %}" alt="Product view 2" class="img-thumbnail" style="width:96px;height:96px;object-fit:cover;">
+                <img src="{% static 'images/image3.png' %}" alt="Product view 3" class="img-thumbnail" style="width:96px;height:96px;object-fit:cover;">
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="card h-100">
+          <div class="card-body d-flex flex-column">
+            <div class="d-flex align-items-start justify-content-between">
+              <div>
+                <h1 class="h3 mb-1">{{ shoe.name }}</h1>
+                {% if shoe.brand %}
+                  <p class="text-muted mb-2">{{ shoe.brand.name }}</p>
+                {% else %}
+                  <p class="text-muted mb-2">Generic Brand</p>
+                {% endif %}
+                <p class="mb-2"><small class="text-muted">Gender: <span class="badge bg-secondary" aria-label="Gender">{{ shoe.get_gender_display }}</span></small></p>
+              </div>
+              <div>
+                <form method="post" action="{% url 'products:wishlist_add' shoe.shoe_id %}">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-outline-danger" aria-label="Add to wishlist" title="Add to wishlist">
+                    <i class="far fa-heart"></i>
+                  </button>
+                </form>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              {% if shoe.discount and shoe.discount > 0 %}
+                <div>
+                  <h3 class="h4 text-primary">KSh {{ shoe.price|floatformat:2 }}</h3>
+                  <small class="text-muted"><del>KSh {{ shoe.original_price|floatformat:2 }}</del></small>
+                </div>
+              {% else %}
+                <h3 class="h4 text-primary">KSh {{ shoe.price|floatformat:2 }}</h3>
+              {% endif %}
+              {% if avg_rating %}
+                <span class="badge bg-success">Rating: {{ avg_rating }} / 5 ★</span>
+              {% endif %}
+              {% if not shoe.is_available %}
+                <span class="badge bg-danger ms-2">Out of stock</span>
+              {% endif %}
+            </div>
+
+            <div class="mb-3">
+              <form method="get" id="colorForm" class="mb-2">
+                <label class="form-label fw-semibold">Color</label>
+                <div class="d-flex gap-2 flex-wrap">
+                  {% if color_available %}
+                    {% for color, available in color_available.items %}
+                      <div>
+                        <input type="radio" class="btn-check" name="color" id="color_{{ color }}" value="{{ color }}" autocomplete="off" {% if color == selected_color %}checked{% endif %} {% if not available %}disabled{% endif %} onchange="this.form.submit();"> <!-- JS to submit upon selection of colour -->
+                        <label class="btn btn-outline-secondary btn-sm" for="color_{{ color }}">{{ color }}</label>
+                      </div>
+                    {% endfor %}
+                  {% else %}
+                    <div class="text-muted">No color options available.</div>
+                  {% endif %}
+                </div>
+              </form>
+
+              <form id="sizeForm" method="post" action="{% url 'cart:add_item' %}">
+                {% csrf_token %}
+                <label class="form-label fw-semibold">Size</label>
+                <div class="d-flex gap-2 flex-wrap mb-3">
+                  {% if variants %}
+                    {% for variant in variants %}
+                      <div>
+                        <input type="radio" class="btn-check" name="variant" id="variant_{{ variant.variant_id }}" value="{{ variant.variant_id }}" autocomplete="off" {% if forloop.first %}checked{% endif %} {% if not variant.is_available %}disabled{% endif %}>
+                        <label class="btn btn-outline-primary btn-sm" for="variant_{{ variant.variant_id }}">{{ variant.size }}</label>
+                      </div>
+                    {% endfor %}
+                  {% else %}
+                    <div class="text-muted">No variants available for this product.</div>
+                  {% endif %}
+                </div>
+
+                <input type="hidden" name="color" value="{{ selected_color }}">
+                <div class="d-flex gap-2">
+                  <button type="submit" class="btn btn-primary" {% if not shoe.is_available %}disabled{% endif %}>Add to Cart</button>
+                  <a href="{% url 'products:reviews' shoe.shoe_id %}" class="btn btn-outline-success">View reviews</a>
+                </div>
+              </form>
+            </div>
+
+            <div class="mt-auto">
+              <h5 class="h6">Product Description</h5>
+              <p class="text-muted">{{ shoe.description }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <!-- </main> -->
+</div>
+ {% endblock %}

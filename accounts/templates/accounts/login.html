@@ -1,0 +1,102 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'accounts/css/login.css' %}">
+                            <!-- header imports -->
+    <link rel="stylesheet" href="{% static 'accounts/css/header.css' %}">
+    <!--import icons-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!--import font-->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="shop-header"> <!--The class designs the nav bar-->
+        <div class="menu-icon">
+            <a href="/">
+                <i class="fas fa-home"></i> <!--The specific icon for menu-->
+            </a>
+            
+        </div>
+
+        <div class="shop-name">SHOEMAX</div>
+
+        <div class="search-bar"></div> <!--  will not be visible -->
+    </header>
+
+    <div class="container">
+        
+        <div class="login-box">
+            <div class="login-items">
+                <div class="login-text">Login</div>
+                <div class="information-input">
+                    <form method="post">
+                        {%csrf_token%}
+                        <div class="username-box">
+                            <div class="username-label">Username</div>
+                            <div class="username-input-box">
+                                {{loginform.username}}
+                                    {% if loginform.username.errors %}
+                                        <div class="error">
+                                            {% for error in loginform.username.errors %}
+                                            <p>{{ error }}</p>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                            </div>
+                        </div>
+                        <div class="password-box">
+                            <div class="password-label">Password</div>
+                            <div class="password-input-box">
+                                {{loginform.password}}
+                                    {% if loginform.password.errors %}
+                                        <div class="error">
+                                            {% for error in loginform.password.errors %}
+                                            <p>{{ error }}</p>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                        </div>
+                        {% if loginform.non_field_errors %}
+                            <div class="error">
+                                {% for error in loginform.non_field_errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+
+
+                        <div class="forgot-password-box">
+                            <div class="remember-me-box">
+                                <!-- Remember Me -->
+                                {{ loginform.remember_me }}
+                                {{ loginform.remember_me.label_tag }}
+                            </div>
+                            <div class="forgot-password">
+                                <a href="/accounts/password_reset">
+                                    <button type="button" class="forgot-password-button">Forgot Password</button>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="login-button-box">
+                            <button class="login-button" type="submit">Login</button>
+                        </div>
+                        
+                        <div class="register-box">
+                            <div class="register-text">Don't have an account?</div>
+                            <a href="/accounts/signup">
+                                <button class="register-button" type="button" name="register-button">Register Now!</button>
+                            </a>
+                            
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

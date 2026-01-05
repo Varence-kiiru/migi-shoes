@@ -1,0 +1,54 @@
+{% load static %}
+<!-- Footer (extracted from nav.html) -->
+<footer class="site-footer mt-5 py-5 border-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-3 footer-desc mb-4 mb-md-0">
+                <h5>About {{ company.company_name }}</h5>
+                <p class="mb-2">At {{ company.company_name }}, we're passionate about helping you put your best foot forward. From timeless classics to the latest trends, we offer high-quality footwear for every walk of life.</p>
+                <p class="mb-2 small">A member of <a href="https://olivian.co.ke" target="_blank" style="color: #38b6ff; font-weight: bold; text-decoration: none;">The Olivian Group Limited</a></p>
+            </div>
+            <div class="col-12 col-md-3 footer-links">
+                <h6>Quick Links</h6>
+                <ul class="list-unstyled">
+                    <li><a href="{% url 'storefront:about' %}">About us</a></li>
+                    <li><a href="{% url 'storefront:contact' %}">Contact us</a></li>
+                    <li><a href="{% url 'products:search' %}">Shop</a></li>
+                    <li><a href="{% url 'customer:customer_profile' %}">My Account</a></li>
+                </ul>
+            </div>
+            <div class="col-12 col-md-3 footer-legal">
+                <h6>Legal</h6>
+                <ul class="list-unstyled">
+                    <li><a href="{% url 'storefront:privacy_policy' %}">Privacy Policy</a></li>
+                    <li><a href="{% url 'storefront:terms_of_service' %}">Terms of Service</a></li>
+                    <li><a href="{% url 'storefront:faq' %}">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="col-12 col-md-3 footer-contact">
+                <h6>Contact Us</h6>
+                {% if company.contact_email %}
+                <p><i class="fas fa-envelope"></i> <a href="mailto:{{ company.contact_email }}" class="text-muted">{{ company.contact_email }}</a></p>
+                {% endif %}
+                {% if company.contact_phone %}
+                <p><i class="fas fa-phone"></i> <a href="tel:{{ company.contact_phone }}" class="text-muted">{{ company.contact_phone }}</a></p>
+                {% endif %}
+                {% if company.address %}
+                <p><i class="fas fa-map-marker-alt"></i> {{ company.address }}</p>
+                {% endif %}
+                <div class="social-links mt-3">
+                    <h6>Follow Us</h6>
+                    {% if company.facebook_url %}<a href="{{ company.facebook_url }}" class="text-muted me-2" target="_blank"><i class="fab fa-facebook-f"></i></a>{% endif %}
+                    {% if company.instagram_url %}<a href="{{ company.instagram_url }}" class="text-muted me-2" target="_blank"><i class="fab fa-instagram"></i></a>{% endif %}
+                    {% if company.twitter_url %}<a href="{{ company.twitter_url }}" class="text-muted me-2" target="_blank"><i class="fab fa-twitter"></i></a>{% endif %}
+                    {% if company.linkedin_url %}<a href="{{ company.linkedin_url }}" class="text-muted" target="_blank"><i class="fab fa-linkedin-in"></i></a>{% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 text-center mt-4">
+                <small class="text-muted">&copy; {{ company.company_name }} Limited - {% now "Y" %}</small>
+            </div>
+        </div>
+    </div>
+</footer>
